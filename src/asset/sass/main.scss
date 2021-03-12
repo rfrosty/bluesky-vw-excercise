@@ -1,0 +1,12 @@
+*, ::before, ::after {
+    margin-top: 0;
+    margin-right: 0;
+    margin: 0;
+    box-sizing: inherit;
+    color: unset; //stops hyperlink appearing purple
+}
+
+html {
+    box-sizing: border-box;
+}
+
