@@ -2,11 +2,111 @@
     margin-top: 0;
     margin-right: 0;
     margin: 0;
-    box-sizing: inherit;
-    color: unset; //stops hyperlink appearing purple
+    box-sizing: border-box;
+    color: unset;//stops hyperlink appearing purple
 }
+
+h1, h2, h3 {
+    font-weight: bold;
+}
+
+h1, h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.17em;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
 html {
-    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    // font-size: 18px;
+    --dark-blue: #001e50;
+    --light-blue: #00B1EB;
+    --grey: #6a767d;
+    --header-height: max(12.5vh, 75px);
+    --pseudo-header-height: 12.5vh;
+    --vw-suitable-for-small-menu: 700px;
+    --hamburger-button-height: calc(1.5 * 1rem);
+    --menu-button-CA-dimensions: 5em;
+    --menu-button-horizontal-margin: 0.5em;
+    --footer-height: 15vh;
 }
 
+$vw-suitable-for-small-menu: 700px;
+
+img {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    object-fit: contain;
+}
+
+@mixin grid-container-template($column-value: 1fr, $row-value: 1fr) {
+    display: grid;
+    grid-template-columns: $column-value;
+    grid-template-rows: $row-value;
+}
+
+@mixin grid-container-horizontally-and-vertically-center-GIs($column-value: 1fr, $row-value: 1fr) {
+  @include grid-container-template($column-value, $row-value);
+  place-items: center;
+}
+
+header {
+    box-sizing: content-box;
+    height: var(--header-height);
+    @include grid-container-template(40% 20% 40%, 1fr);
+    &::before {
+        content: '';
+    }
+    > img {
+        height: 100%;//var(--header-height);
+    }
+    > nav {
+        @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, auto), 1fr); 
+        justify-content: space-evenly;
+    }
+    @media screen and (max-width: $vw-suitable-for-small-menu) { //any way to have original CSS (`nav`) so that it positions 'menu' correctly?🧙‍♂️
+        > nav {
+            @include grid-container-horizontally-and-vertically-center-GIs(auto, 1fr);
+            justify-content: end;
+        }
+    }
+    border-bottom: solid var(--dark-blue) 2px;
+    #menu-button {
+        margin: 0 var(--menu-button-horizontal-margin);
+        height: var(--hamburger-button-height);
+        width: var(--menu-button-CA-dimensions);
+    }
+}
+
+#small-menu-options {
+    height: 100vh;
+    @include grid-container-horizontally-and-vertically-center-GIs(auto, 30% repeat(3, 1fr) 30%);
+    > * {
+        height: var(--header-height);//🧙‍♂️①min-height: var(--header-height-min); (something weird about setting a min-height on a GI?)
+        @include grid-container-horizontally-and-vertically-center-GIs(auto, auto);
+    }
+    > *:first-child {
+        justify-self: end;
+        align-self: start;
+        #exit-image {
+            margin: 0 var(--menu-button-horizontal-margin);
+            height: var(--hamburger-button-height);
+            width: var(--menu-button-CA-dimensions);
+        }
+    }
+}
+
+main {
+    min-height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+footer {
+    height: var(--footer-height);
+    // @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, 1fr), auto);
+}
