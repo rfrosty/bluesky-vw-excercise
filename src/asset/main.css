@@ -25,22 +25,21 @@ html {
   --dark-blue: #001e50;
   --light-blue: #00B1EB;
   --grey: #6a767d;
-  --header-height: max(12.5vh, 75px);
-  --pseudo-header-height: 12.5vh;
+  --header-height: max(0.125 * var(--vh100), 75px);
   --vw-suitable-for-small-menu: 700px;
   --hamburger-button-height: calc(1.5 * 1rem);
   --menu-button-CA-dimensions: 5em;
   --menu-button-horizontal-margin: 0.5em;
-  --footer-height: 15vh;
+  --footer-height: calc(0.15 * var(--vh100));
 }
 
 img {
+  -o-object-fit: contain;
+     object-fit: contain;
   width: 100%;
   height: 100%;
   min-width: 0;
   min-height: 0;
-  -o-object-fit: contain;
-     object-fit: contain;
 }
 
 header {
@@ -99,7 +98,7 @@ header #menu-button {
 }
 
 #small-menu-options {
-  height: 100vh;
+  height: var(--vh100);
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto;
@@ -135,7 +134,7 @@ header #menu-button {
 }
 
 main {
-  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  min-height: calc(var(--vh100) - var(--header-height) - var(--footer-height));
 }
 
 footer {

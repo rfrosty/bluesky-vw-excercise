@@ -9,9 +9,8 @@ export default function EGolf() {
     let displaySmallMenuOptionsRef = useRef(false);//🧙‍♂️having to use this because of stale closure
     let viewportSuitableForSmallMenuRef = useRef(700); //🧙‍♂️is there a better way than using arbitrary point-break?
 
-    function makeVHCSSVariable() { //💎surely stale closure. How can we have a function that executes with the freshest info every time window's resized?
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty(`--vh`, `${vh}px`);
+    function makeVHCSSVariable() { //🧙‍♂️not sure why stale closure didn't form here. Is it because it's not referencing state? 
+        document.documentElement.style.setProperty(`--vh100`, `${window.innerHeight}px`);
     }
 
     function isViewportSuitableForSmallMenu() {
@@ -38,7 +37,6 @@ export default function EGolf() {
                 <header>
                     <img src={logo} />
                     <nav>
-                        {/* 👓 make it effecient without it ruining GC:GI relationship */}
                         {isViewportSuitableForSmallMenuState &&
                             <img id="menu-button" src={hamburger} onClick={turnOnSmallMenuOptions} />
                         }
