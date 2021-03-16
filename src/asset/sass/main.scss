@@ -6,8 +6,8 @@
     color: unset;//stops hyperlink appearing purple
 }
 
-h1, h2, h3 {
-    font-weight: bold;
+h1, h2, h3, h4 {
+    font-weight: initial;
 }
 
 h1, h2 {
@@ -18,20 +18,31 @@ h3 {
     font-size: 1.17em;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+h4 {
+    margin: 1.33em 0;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap');
 
 html {
     font-family: 'Nunito', sans-serif;
     // font-size: 18px;
     --dark-blue: #001e50;
+    --dark-blue-purple: #201b65;
     --light-blue: #00B1EB;
     --grey: #6a767d;
+    --dark-grey: #3b4145;
     --header-height: max(0.125 * var(--vh100), 75px);
     --vw-suitable-for-small-menu: 700px;
     --hamburger-button-height: calc(1.5 * 1rem);
     --menu-button-CA-dimensions: 5em;
     --menu-button-horizontal-margin: 0.5em;
-    --footer-height: calc(0.15 * var(--vh100));
+    --hf-border: solid var(--dark-blue) 2px;
+    --footer-height: 200px;//🧙‍♂️more 'flexible' to have calculated it with JS? 
 }
 
 $vw-suitable-for-small-menu: 700px;
@@ -56,7 +67,7 @@ img {
 }
 
 header {
-    box-sizing: content-box;
+    // box-sizing: content-box;
     height: var(--header-height);
     @include grid-container-template(40% 20% 40%, 1fr);
     &::before {
@@ -68,6 +79,9 @@ header {
     > nav {
         @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, auto), 1fr); 
         justify-content: space-evenly;
+        // h4 {
+        //     @include grid-container-horizontally-and-vertically-center-GIs(auto, auto);
+        // }
     }
     @media screen and (max-width: $vw-suitable-for-small-menu) { //any way to have original CSS (`nav`) so that it positions 'menu' correctly?🧙‍♂️
         > nav {
@@ -75,7 +89,7 @@ header {
             justify-content: end;
         }
     }
-    border-bottom: solid var(--dark-blue) 2px;
+    border-bottom: var(--hf-border);
     #menu-button {
         margin: 0 var(--menu-button-horizontal-margin);
         height: var(--hamburger-button-height);
@@ -106,6 +120,18 @@ main {
 }
 
 footer {
-    height: var(--footer-height);
-    // @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, 1fr), auto);
+    min-height: var(--footer-height);
+    @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, 1fr), auto);
+    align-items: start;
+    >* {
+        text-align: center;
+        > h4 {
+            font-weight: 800;
+        }
+        p {
+            font-size: 14px;
+            color: var(--dark-blue-purple);
+        }
+    }
+    border-top: var(--hf-border);
 }

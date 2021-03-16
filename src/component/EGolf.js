@@ -26,6 +26,7 @@ export default function EGolf() {
 
     useEffect(() => {
         isViewportSuitableForSmallMenu();
+        makeVHCSSVariable();
         window.addEventListener('resize', isViewportSuitableForSmallMenu);
         window.addEventListener('resize', makeVHCSSVariable);
     }, []);
@@ -33,41 +34,46 @@ export default function EGolf() {
     return (
         <>
             {displaySmallMenuOptions && <SmallMenu setDisplaySmallMenuOptions={setDisplaySmallMenuOptions} />}
-            {!displaySmallMenuOptions &&
-                <header>
-                    <img src={logo} />
-                    <nav>
-                        {isViewportSuitableForSmallMenuState &&
-                            <img id="menu-button" src={hamburger} onClick={turnOnSmallMenuOptions} />
-                        }
-                        {!isViewportSuitableForSmallMenuState && <h4>More Cars</h4>}
-                        {!isViewportSuitableForSmallMenuState && <h4>About</h4>}
-                        {!isViewportSuitableForSmallMenuState && <h4>Contact</h4>}
-                    </nav >
-                </header >
-            }
-            {!displaySmallMenuOptions &&
-                <main>
 
-                </main>
+            {!displaySmallMenuOptions &&
+                <section>
+                    <header>
+                        <img src={logo} />
+                        <nav>
+                            {isViewportSuitableForSmallMenuState &&
+                                <img id="menu-button" src={hamburger} onClick={turnOnSmallMenuOptions} />
+                            }
+                            {!isViewportSuitableForSmallMenuState && <div>More Cars</div>}
+                            {!isViewportSuitableForSmallMenuState && <div>About</div>}
+                            {!isViewportSuitableForSmallMenuState && <div>Contact</div>}
+                        </nav >
+                    </header >
+                    <main>
+
+                    </main>
+                    <footer>
+                        <section>
+                            <h4>Our Stores</h4>
+                            <p>Facebook</p>
+                            <p>Instagram</p>
+                            <p>Twitter</p>
+                        </section>
+                        <section>
+                            <h4>Company</h4>
+                            <p>Careers</p>
+                            <p>App</p>
+                            <p>Investor Relations</p>
+                            <p>Statements</p>
+                        </section>
+                        <section>
+                            <h4>Legal</h4>
+                            <p>Terms &amp; Conditions</p>
+                            <p>Privacy</p>
+                            <p>Cookies</p>
+                        </section>
+                    </footer>
+                </section>
             }
-            {/* <footer>
-                <section>
-                    <div>info</div>
-                    <div>info</div>
-                    <div>info</div>
-                </section>
-                <section>
-                    <div>info</div>
-                    <div>info</div>
-                    <div>info</div>
-                </section>
-                <section>
-                    <div>info</div>
-                    <div>info</div>
-                    <div>info</div>
-                </section>
-            </footer> */}
         </>
     )
 }
