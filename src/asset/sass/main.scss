@@ -23,7 +23,9 @@ h4 {
 }
 
 p {
-    margin-bottom: 1em;
+    --p-margin: 1em;
+    margin-bottom: var(--p-margin);
+    text-align: center;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap');
@@ -36,13 +38,14 @@ html {
     --light-blue: #00B1EB;
     --grey: #6a767d;
     --dark-grey: #3b4145;
-    --header-height: max(0.125 * var(--vh100), 75px);
+    --header-height: clamp(75px, 0.125 * var(--vh100), 5rem);
     --vw-suitable-for-small-menu: 700px;
     --hamburger-button-height: calc(1.5 * 1rem);
     --menu-button-CA-dimensions: 5em;
     --menu-button-horizontal-margin: 0.5em;
     --hf-border: solid var(--dark-blue) 2px;
     --footer-height: 200px;//🧙‍♂️more 'flexible' to have calculated it with JS? 
+    --arbitrarily-large-number: 1000000px;
 }
 
 $vw-suitable-for-small-menu: 700px;
@@ -115,13 +118,47 @@ header {
     }
 }
 
-main {
+main { //if accounting for extremely wide-screens, `main` could have a max-width
     min-height: calc(var(--vh100) - var(--header-height) - var(--footer-height));
+    // width: 100%;
+    #picture-text-container {
+        --percentage-of-image: 55%;//(a value copied from original website)//var(--vw-suitable-for-small-menu);
+        // border-bottom: var(--hf-border);
+        display: flex;
+        // height: calc(var(--vh100) * 0.618);
+        width: 100vw;
+        flex-wrap: wrap;
+        // justify-content: space-around;
+        align-items: center;
+        > * {
+            flex-grow: 1;
+        }
+        > img {
+            object-fit: contain;
+            width: var(--percentage-of-image);
+            background-color: var(--dark-blue);
+        }
+        > div {
+            width: clamp(30ch, 45%, var(--arbitrarily-large-number));//why does `max(30ch, 45%) not work`
+            // flex-basis: 30ch;//a charatcer unit measurement;//calc(100% - var(--percentage-of-image)); 
+            // margin: 0 auto;
+            @include grid-container-horizontally-and-vertically-center-GIs(auto, auto auto); align-content: center;
+            p {
+                max-width: 65ch;
+                margin-left: var(--p-margin);
+                margin-right: var(--p-margin);
+            }
+            p:first-child {
+                margin-top: var(--p-margin);
+            }
+        }
+    }
 }
 
 footer {
     min-height: var(--footer-height);
-    @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, 1fr), auto);
+    @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, auto), auto);
+    justify-content: space-evenly;
     align-items: start;
     >* {
         text-align: center;

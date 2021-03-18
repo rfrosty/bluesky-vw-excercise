@@ -1,4 +1,5 @@
 import logo from '../asset/images/logo.svg';
+import golf from '../asset/images/golf-car.png';
 import hamburger from '../asset/images/hamburger.svg';
 import { useState, useEffect, useRef } from 'react';
 import SmallMenu from './SmallMenu';
@@ -43,13 +44,20 @@ export default function EGolf() {
                             {isViewportSuitableForSmallMenuState &&
                                 <img id="menu-button" src={hamburger} onClick={turnOnSmallMenuOptions} />
                             }
-                            {!isViewportSuitableForSmallMenuState && <div>More Cars</div>}
+                            {!isViewportSuitableForSmallMenuState && <div>Golf</div>}
                             {!isViewportSuitableForSmallMenuState && <div>About</div>}
                             {!isViewportSuitableForSmallMenuState && <div>Contact</div>}
                         </nav >
                     </header >
                     <main>
-
+                        <section id='picture-text-container'>
+                            <img src={golf} />
+                            {/* <p>p</p> */}
+                            <div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor vitae purus faucibus ornare suspendisse sed.</p>
+                                <p>Tellus integer feugiat scelerisque varius morbi enim nunc faucibus. Velit scelerisque in dictum non consectetur.</p>
+                            </div>
+                        </section>
                     </main>
                     <footer>
                         <section>

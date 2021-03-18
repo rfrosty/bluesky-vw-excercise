@@ -25,7 +25,9 @@ h4 {
 }
 
 p {
-  margin-bottom: 1em;
+  --p-margin: 1em;
+  margin-bottom: var(--p-margin);
+  text-align: center;
 }
 
 html {
@@ -35,13 +37,14 @@ html {
   --light-blue: #00B1EB;
   --grey: #6a767d;
   --dark-grey: #3b4145;
-  --header-height: max(0.125 * var(--vh100), 75px);
+  --header-height: clamp(75px, 0.125 * var(--vh100), 5rem);
   --vw-suitable-for-small-menu: 700px;
   --hamburger-button-height: calc(1.5 * 1rem);
   --menu-button-CA-dimensions: 5em;
   --menu-button-horizontal-margin: 0.5em;
   --hf-border: solid var(--dark-blue) 2px;
   --footer-height: 200px;
+  --arbitrarily-large-number: 1000000px;
 }
 
 img {
@@ -146,15 +149,67 @@ main {
   min-height: calc(var(--vh100) - var(--header-height) - var(--footer-height));
 }
 
+main #picture-text-container {
+  --percentage-of-image: 55%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main #picture-text-container > * {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+main #picture-text-container > img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  width: var(--percentage-of-image);
+  background-color: var(--dark-blue);
+}
+
+main #picture-text-container > div {
+  width: clamp(30ch, 45%, var(--arbitrarily-large-number));
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto;
+      grid-template-columns: auto;
+  -ms-grid-rows: auto auto;
+      grid-template-rows: auto auto;
+  place-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+main #picture-text-container > div p {
+  max-width: 65ch;
+  margin-left: var(--p-margin);
+  margin-right: var(--p-margin);
+}
+
+main #picture-text-container > div p:first-child {
+  margin-top: var(--p-margin);
+}
+
 footer {
   min-height: var(--footer-height);
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[3];
-      grid-template-columns: repeat(3, 1fr);
+  -ms-grid-columns: (auto)[3];
+      grid-template-columns: repeat(3, auto);
   -ms-grid-rows: auto;
       grid-template-rows: auto;
   place-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: start;
