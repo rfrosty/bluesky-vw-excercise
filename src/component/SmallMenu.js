@@ -1,15 +1,15 @@
-import exit from '../asset/images/exit.svg';
+import hamburgerExit from '../asset/images/hamburger-exit.svg';
 
-export default function SmallMenu({ setDisplaySmallMenuOptions }) {
+export default function SmallMenu({ setDisplaySmallMenu }) {
 
-    function makeFalseDisplaySmallMenuOptions() {
-        setDisplaySmallMenuOptions(false);
+    function makeFalseDisplaySmallMenu() {
+        setDisplaySmallMenu(false);
     }
 
     return (
-        <nav id="small-menu-options">
-            <div id="pseudo-header" onClick={makeFalseDisplaySmallMenuOptions}>
-                <img id="exit-image" src={exit} />
+        <nav id="small-menu">
+            <div id="pseudo-header" onClick={makeFalseDisplaySmallMenu}>
+                <img id="exit-image" src={hamburgerExit} alt="exit-sign" />
             </div>
             <h4>More Cars</h4>
             <h4>About</h4>

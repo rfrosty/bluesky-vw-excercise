@@ -1,6 +1,17 @@
+//REFACTOR🎣/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//PICTURE & TEXT: 1. we don't want the viewer to view the img under a certain dimension (width whilst height correlates?) - then it must either i) load smaller image ii) somehow crop. 
+//similarly-related: we don't want img height to be smaller than text-height? i) get it to wrap at certain viewpoint.
+//similarly-related: ratio not to cross so that `object-fit: cover` still looks good.
+
+//HEADER: 1. Menu, in non-modile mode, opens up from side.
+//2. small menu-options're positioned a bit higher up - or space-evenly along currentViewportHeight. 
+
+//FOOTER: 1. Have a top-border that spans length of text. 
+
+//ANIMATIONS: 1. Underline menu-items. 
+//RESETS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 *, ::before, ::after {
-    margin-top: 0;
-    margin-right: 0;
     margin: 0;
     box-sizing: border-box;
     color: unset;//stops hyperlink appearing purple
@@ -23,28 +34,62 @@ h4 {
 }
 
 p {
-    --p-margin: 1em;
     margin-bottom: var(--p-margin);
     text-align: center;
+}
+
+button {
+    //all attributes added from Chrome user-agent-stylesheet.
+    appearance: auto;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: default;
+    box-sizing: border-box;
+    margin: 0em;
+    //of which I've changed (so I can use this semantic `button` tag)🧙‍♂️Is this even a good idea? I can't predict other/future user-agent stylsheets...
+    color: initial;
+    background-color: initial;
+    font: initial;
+    font-family: inherit;
+    padding: initial;//1px 6px;
+    border-width: initial;//2px;
+    border-style: initial;//outset;
+    border-color: initial;
+    border-image: initial;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap');
 
 html {
+    //font
     font-family: 'Nunito', sans-serif;
-    // font-size: 18px;
+    //colors
     --dark-blue: #001e50;
     --dark-blue-purple: #201b65;
     --light-blue: #00B1EB;
     --grey: #6a767d;
     --dark-grey: #3b4145;
+    //dimensions
+    //header
     --header-height: clamp(75px, 0.125 * var(--vh100), 5rem);
     --vw-suitable-for-small-menu: 700px;
     --hamburger-button-height: calc(1.5 * 1rem);
-    --menu-button-CA-dimensions: 5em;
+    --menu-button-width-dimension: 5em;
     --menu-button-horizontal-margin: 0.5em;
     --hf-border: solid var(--dark-blue) 2px;
-    --footer-height: 200px;//🧙‍♂️more 'flexible' to have calculated it with JS? 
+    //p
+    --p-margin: 1em;
+    --min-character-width: 30ch; --max-character-width: 65ch;
+    --footer-height: 200px;//🧙‍♂️more 'flexible' to have calculated it with JS?
+    //misc 
     --arbitrarily-large-number: 1000000px;
 }
 
@@ -68,23 +113,16 @@ img {
   @include grid-container-template($column-value, $row-value);
   place-items: center;
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 header {
-    // box-sizing: content-box;
     height: var(--header-height);
-    @include grid-container-template(40% 20% 40%, 1fr);
-    &::before {
-        content: '';
-    }
+    @include grid-container-template(20% 40%, 1fr); justify-content: end;
     > img {
         height: 100%;//var(--header-height);
     }
     > nav {
         @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, auto), 1fr); 
         justify-content: space-evenly;
-        // h4 {
-        //     @include grid-container-horizontally-and-vertically-center-GIs(auto, auto);
-        // }
     }
     @media screen and (max-width: $vw-suitable-for-small-menu) { //any way to have original CSS (`nav`) so that it positions 'menu' correctly?🧙‍♂️
         > nav {
@@ -96,15 +134,15 @@ header {
     #menu-button {
         margin: 0 var(--menu-button-horizontal-margin);
         height: var(--hamburger-button-height);
-        width: var(--menu-button-CA-dimensions);
+        width: var(--menu-button-width-dimension);
     }
 }
 
-#small-menu-options {
+#small-menu {
     height: var(--vh100);
     @include grid-container-horizontally-and-vertically-center-GIs(auto, 30% repeat(3, 1fr) 30%);
     > * {
-        height: var(--header-height);//🧙‍♂️①min-height: var(--header-height-min); (something weird about setting a min-height on a GI?)
+        height: var(--header-height);
         @include grid-container-horizontally-and-vertically-center-GIs(auto, auto);
     }
     > *:first-child {
@@ -113,22 +151,19 @@ header {
         #exit-image {
             margin: 0 var(--menu-button-horizontal-margin);
             height: var(--hamburger-button-height);
-            width: var(--menu-button-CA-dimensions);
+            width: var(--menu-button-width-dimension);
         }
     }
 }
 
-main { //if accounting for extremely wide-screens, `main` could have a max-width
+main { //if accounting for extremely wide-screens, `main` could have a max-width.
     min-height: calc(var(--vh100) - var(--header-height) - var(--footer-height));
-    // width: 100%;
     #picture-text-container {
-        --percentage-of-image: 55%;//(a value copied from original website)//var(--vw-suitable-for-small-menu);
-        // border-bottom: var(--hf-border);
+        --percentage-of-image: 55%;
+        --margin-between-vertical-item-edges-and-container: calc(2 * var(--p-margin));
         display: flex;
-        // height: calc(var(--vh100) * 0.618);
         width: 100vw;
         flex-wrap: wrap;
-        // justify-content: space-around;
         align-items: center;
         > * {
             flex-grow: 1;
@@ -139,17 +174,24 @@ main { //if accounting for extremely wide-screens, `main` could have a max-width
             background-color: var(--dark-blue);
         }
         > div {
-            width: clamp(30ch, 45%, var(--arbitrarily-large-number));//why does `max(30ch, 45%) not work`
-            // flex-basis: 30ch;//a charatcer unit measurement;//calc(100% - var(--percentage-of-image)); 
-            // margin: 0 auto;
-            @include grid-container-horizontally-and-vertically-center-GIs(auto, auto auto); align-content: center;
-            p {
-                max-width: 65ch;
+            width: calc(max(30ch, 45%));
+            @include grid-container-horizontally-and-vertically-center-GIs(auto, repeat(3, auto)); align-content: center;
+            * {
+                max-width: var(--max-character-width);
                 margin-left: var(--p-margin);
                 margin-right: var(--p-margin);
             }
             p:first-child {
-                margin-top: var(--p-margin);
+                margin-top: var(--margin-between-vertical-item-edges-and-container);
+            }
+            button {
+                background-color: var(--dark-blue); color: white;
+                padding: calc( 0.5 * var(--p-margin)) calc( 2 * var(--p-margin));
+                border-radius: var(--arbitrarily-large-number);
+                margin-top: calc(1 * var(--p-margin));
+            }
+            >*:last-child {
+                margin-bottom: var(--margin-between-vertical-item-edges-and-container);
             }
         }
     }

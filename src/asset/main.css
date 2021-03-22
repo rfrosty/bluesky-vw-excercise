@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap");
 *, ::before, ::after {
-  margin-top: 0;
-  margin-right: 0;
   margin: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -25,9 +23,40 @@ h4 {
 }
 
 p {
-  --p-margin: 1em;
   margin-bottom: var(--p-margin);
   text-align: center;
+}
+
+button {
+  -webkit-appearance: auto;
+     -moz-appearance: auto;
+          appearance: auto;
+  -webkit-writing-mode: horizontal-tb !important;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  cursor: default;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0em;
+  color: initial;
+  background-color: initial;
+  font: initial;
+  font-family: inherit;
+  padding: initial;
+  border-width: initial;
+  border-style: initial;
+  border-color: initial;
+  -o-border-image: initial;
+     border-image: initial;
 }
 
 html {
@@ -40,9 +69,12 @@ html {
   --header-height: clamp(75px, 0.125 * var(--vh100), 5rem);
   --vw-suitable-for-small-menu: 700px;
   --hamburger-button-height: calc(1.5 * 1rem);
-  --menu-button-CA-dimensions: 5em;
+  --menu-button-width-dimension: 5em;
   --menu-button-horizontal-margin: 0.5em;
   --hf-border: solid var(--dark-blue) 2px;
+  --p-margin: 1em;
+  --min-character-width: 30ch;
+  --max-character-width: 65ch;
   --footer-height: 200px;
   --arbitrarily-large-number: 1000000px;
 }
@@ -60,15 +92,14 @@ header {
   height: var(--header-height);
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 40% 20% 40%;
-      grid-template-columns: 40% 20% 40%;
+  -ms-grid-columns: 20% 40%;
+      grid-template-columns: 20% 40%;
   -ms-grid-rows: 1fr;
       grid-template-rows: 1fr;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
   border-bottom: var(--hf-border);
-}
-
-header::before {
-  content: '';
 }
 
 header > img {
@@ -106,10 +137,10 @@ header > nav {
 header #menu-button {
   margin: 0 var(--menu-button-horizontal-margin);
   height: var(--hamburger-button-height);
-  width: var(--menu-button-CA-dimensions);
+  width: var(--menu-button-width-dimension);
 }
 
-#small-menu-options {
+#small-menu {
   height: var(--vh100);
   display: -ms-grid;
   display: grid;
@@ -120,7 +151,7 @@ header #menu-button {
   place-items: center;
 }
 
-#small-menu-options > * {
+#small-menu > * {
   height: var(--header-height);
   display: -ms-grid;
   display: grid;
@@ -131,7 +162,7 @@ header #menu-button {
   place-items: center;
 }
 
-#small-menu-options > *:first-child {
+#small-menu > *:first-child {
   -ms-grid-column-align: end;
       justify-self: end;
   -ms-flex-item-align: start;
@@ -139,10 +170,10 @@ header #menu-button {
       align-self: start;
 }
 
-#small-menu-options > *:first-child #exit-image {
+#small-menu > *:first-child #exit-image {
   margin: 0 var(--menu-button-horizontal-margin);
   height: var(--hamburger-button-height);
-  width: var(--menu-button-CA-dimensions);
+  width: var(--menu-button-width-dimension);
 }
 
 main {
@@ -151,6 +182,7 @@ main {
 
 main #picture-text-container {
   --percentage-of-image: 55%;
+  --margin-between-vertical-item-edges-and-container: calc(2 * var(--p-margin));
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -176,26 +208,38 @@ main #picture-text-container > img {
 }
 
 main #picture-text-container > div {
-  width: clamp(30ch, 45%, var(--arbitrarily-large-number));
+  width: calc(max(30ch, 45%));
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto;
       grid-template-columns: auto;
-  -ms-grid-rows: auto auto;
-      grid-template-rows: auto auto;
+  -ms-grid-rows: (auto)[3];
+      grid-template-rows: repeat(3, auto);
   place-items: center;
   -ms-flex-line-pack: center;
       align-content: center;
 }
 
-main #picture-text-container > div p {
-  max-width: 65ch;
+main #picture-text-container > div * {
+  max-width: var(--max-character-width);
   margin-left: var(--p-margin);
   margin-right: var(--p-margin);
 }
 
 main #picture-text-container > div p:first-child {
-  margin-top: var(--p-margin);
+  margin-top: var(--margin-between-vertical-item-edges-and-container);
+}
+
+main #picture-text-container > div button {
+  background-color: var(--dark-blue);
+  color: white;
+  padding: calc( 0.5 * var(--p-margin)) calc( 2 * var(--p-margin));
+  border-radius: var(--arbitrarily-large-number);
+  margin-top: calc(1 * var(--p-margin));
+}
+
+main #picture-text-container > div > *:last-child {
+  margin-bottom: var(--margin-between-vertical-item-edges-and-container);
 }
 
 footer {
