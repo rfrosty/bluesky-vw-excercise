@@ -8,30 +8,40 @@ export default function EGolf() {
     let [isViewportSuitableForSmallMenuState, setIsViewportSuitableForSmallMenuState] = useState(false);
     let [displaySmallMenu, setDisplaySmallMenu] = useState(false);
     let displaySmallMenuRef = useRef(false);//🧙‍♂️having to use this because of stale closure
-    let viewportSuitableForSmallMenuRef = useRef(700); //🧙‍♂️is there a better way than using arbitrary point-break?
+    let viewportSuitableForSmallMenuRef = useRef(700);//🧙‍♂️is there a better way than using arbitrary point-break?
 
+    function isViewportSuitableForSmallMenu() {
+        if (window.innerWidth <= viewportSuitableForSmallMenuRef.current) {
+            setIsViewportSuitableForSmallMenuState(true);//🧙‍♂️add a simple if statement to see if querySelector return `null`. 
+        } else {
+            setIsViewportSuitableForSmallMenuState(false);
+            if (displaySmallMenuRef.current) {
+                setDisplaySmallMenu(false); displaySmallMenuRef.current = false;
+            }
+        }
+    }
     function makeVHCSSVariable() {
         document.documentElement.style.setProperty(`--vh100`, `${window.innerHeight}px`);
     }
-    function isViewportSuitableForSmallMenu() {
-        setIsViewportSuitableForSmallMenuState(window.innerWidth <= viewportSuitableForSmallMenuRef.current ? true : false);//🧙‍♂️why wouldn't this be stale closure?
-        if (displaySmallMenuRef.current && window.innerWidth >= viewportSuitableForSmallMenuRef.current) {
-            setDisplaySmallMenu(false); displaySmallMenuRef.current = false;
+    function makeFooterHeightCSSVariable() {
+        const footer = document.querySelector(`footer`);
+        if (footer) {
+            document.documentElement.style.setProperty(`--footer-height`, `${footer.offsetHeight}px`);
         }
     }
     function turnOnSmallMenu() {
-        setDisplaySmallMenu(true);
-        displaySmallMenuRef.current = true;
+        setDisplaySmallMenu(true); displaySmallMenuRef.current = true;
     }
 
     useEffect(() => {
         isViewportSuitableForSmallMenu(); window.addEventListener('resize', isViewportSuitableForSmallMenu);
         makeVHCSSVariable(); window.addEventListener('resize', makeVHCSSVariable);
+        makeFooterHeightCSSVariable(); window.addEventListener('resize', makeFooterHeightCSSVariable);
     }, []);
 
     return (
         <>
-            {displaySmallMenu && <SmallMenu setDisplaySmallMenu={setDisplaySmallMenu} />}
+            {displaySmallMenu && <SmallMenu setDisplaySmallMenu={setDisplaySmallMenu} displaySmallMenuRef={displaySmallMenuRef} />}
 
             {!displaySmallMenu &&
                 <section>
@@ -41,7 +51,7 @@ export default function EGolf() {
                             {isViewportSuitableForSmallMenuState &&
                                 <img id="menu-button" src={hamburger} onClick={turnOnSmallMenu} alt="menu-button" />
                             }
-                            {!isViewportSuitableForSmallMenuState && <div>Golf</div>}
+                            {!isViewportSuitableForSmallMenuState && <div>More Cars</div>}
                             {!isViewportSuitableForSmallMenuState && <div>About</div>}
                             {!isViewportSuitableForSmallMenuState && <div>Contact</div>}
                         </nav >
@@ -56,7 +66,8 @@ export default function EGolf() {
                             </div>
                         </section>
                     </main>
-                    <footer>
+                    <footer >
+                        {/*🕶 i) its removing it? - is it true className changes all values in one fell swoop? ii) the right way to do such a thing?🧙‍♂️ */}
                         <section>
                             <h4>Our Stores</h4>
                             <p>Facebook</p>

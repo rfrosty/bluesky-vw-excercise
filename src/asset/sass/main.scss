@@ -1,20 +1,24 @@
 //REFACTOR🎣/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//PICTURE & TEXT: 1. we don't want the viewer to view the img under a certain dimension (width whilst height correlates?) - then it must either i) load smaller image ii) somehow crop. 
-//similarly-related: we don't want img height to be smaller than text-height? i) get it to wrap at certain viewpoint.
-//similarly-related: ratio not to cross so that `object-fit: cover` still looks good.
+//PICTURE & TEXT: 1. when the image has (a larger) min-width  - is there min&max width&height values we want to apply to the img? (further helps this #picture-text-container wrap). 
+//z) load smaller image? z2) ratio not to cross so that `object-fit: cover` still looks good.
 
-//HEADER: 1. Menu, in non-modile mode, opens up from side.
-//2. small menu-options're positioned a bit higher up - or space-evenly along currentViewportHeight. 
+//HEADER: 
 
-//FOOTER: 1. Have a top-border that spans length of text. 
+//FOOTER:
+//z01. rewrite the whole thing in flex
 
-//ANIMATIONS: 1. Underline menu-items. 
+//ANIMATIONS: HEADER: 1. Underline menu-items. 2. Menu, in non-mobile mode, opens up from side.
+//SCALING-FOR-A-BIG-SCREEN: 
 //RESETS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 *, ::before, ::after {
     margin: 0;
     box-sizing: border-box;
     color: unset;//stops hyperlink appearing purple
+}
+
+#root {
+    min-width: var(--min-width-of-page);
 }
 
 h1, h2, h3, h4 {
@@ -30,7 +34,7 @@ h3 {
 }
 
 h4 {
-    margin: 1.33em 0;
+    margin: 2em 0;//1.33em 0;
 }
 
 p {
@@ -78,6 +82,8 @@ html {
     --grey: #6a767d;
     --dark-grey: #3b4145;
     //dimensions
+    --direct-descendants-of-main-max-width: 2150px;
+    --min-width-of-page: 320px;
     //header
     --header-height: clamp(75px, 0.125 * var(--vh100), 5rem);
     --vw-suitable-for-small-menu: 700px;
@@ -87,9 +93,9 @@ html {
     --hf-border: solid var(--dark-blue) 2px;
     //p
     --p-margin: 1em;
-    --min-character-width: 30ch; --max-character-width: 65ch;
-    --footer-height: 200px;//🧙‍♂️more 'flexible' to have calculated it with JS?
+    --min-character-width: 30ch; --max-character-width: 60ch;
     //misc 
+    --golf-min-height: 350px;
     --arbitrarily-large-number: 1000000px;
 }
 
@@ -113,18 +119,22 @@ img {
   @include grid-container-template($column-value, $row-value);
   place-items: center;
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+.hide-from-layout {
+    display: none;
+}
+//STRUCTURAL/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 header {
     height: var(--header-height);
-    @include grid-container-template(20% 40%, 1fr); justify-content: end;
+    @include grid-container-template(20% 40%); justify-content: end;
     > img {
         height: 100%;//var(--header-height);
     }
     > nav {
-        @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, auto), 1fr); 
-        justify-content: space-evenly;
+        @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, minmax(auto, 150px)), 1fr);//need minmax value here
+        justify-content: center;
     }
-    @media screen and (max-width: $vw-suitable-for-small-menu) { //any way to have original CSS (`nav`) so that it positions 'menu' correctly?🧙‍♂️
+    @media screen and (max-width: $vw-suitable-for-small-menu) {//any way to have original CSS (`nav`) so that it positions 'menu' correctly?🧙‍♂️
         > nav {
             @include grid-container-horizontally-and-vertically-center-GIs(auto, 1fr);
             justify-content: end;
@@ -140,7 +150,8 @@ header {
 
 #small-menu {
     height: var(--vh100);
-    @include grid-container-horizontally-and-vertically-center-GIs(auto, 30% repeat(3, 1fr) 30%);
+    background-color: var(--dark-blue); color: white;
+    @include grid-container-horizontally-and-vertically-center-GIs(auto, var(--header-height) repeat(3, 1fr) var(--header-height));
     > * {
         height: var(--header-height);
         @include grid-container-horizontally-and-vertically-center-GIs(auto, auto);
@@ -152,34 +163,45 @@ header {
             margin: 0 var(--menu-button-horizontal-margin);
             height: var(--hamburger-button-height);
             width: var(--menu-button-width-dimension);
+            color: initial; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(105deg) brightness(110%) contrast(101%);
         }
     }
 }
 
 main { //if accounting for extremely wide-screens, `main` could have a max-width.
     min-height: calc(var(--vh100) - var(--header-height) - var(--footer-height));
+    >* {
+        max-width: var(--direct-descendants-of-main-max-width); margin: 0 auto;
+    }
     #picture-text-container {
         --percentage-of-image: 55%;
         --margin-between-vertical-item-edges-and-container: calc(2 * var(--p-margin));
+        --max-height-of-GIs: 200px;
         display: flex;
-        width: 100vw;
+        width: 100vw; //max-height: 600px;
         flex-wrap: wrap;
-        align-items: center;
+        // align-items: center;//great 'back-up value' in case text increases (massively)
         > * {
             flex-grow: 1;
         }
         > img {
-            object-fit: contain;
+            object-fit: cover;
             width: var(--percentage-of-image);
+            height: auto;
+            min-height: var(--golf-min-height);//🧙‍♂️lucky that this isn't messing up the 0px value (in resets) that seemed to be required
+            // max-height: 500px;
             background-color: var(--dark-blue);
+            @media screen and (min-width: 1200px) {
+                object-fit: contain;
+            }
         }
         > div {
-            width: calc(max(30ch, 45%));
+            width: calc(max(30ch, 100% - var(--percentage-of-image))); //max-height: 600px;
             @include grid-container-horizontally-and-vertically-center-GIs(auto, repeat(3, auto)); align-content: center;
             * {
                 max-width: var(--max-character-width);
-                margin-left: var(--p-margin);
-                margin-right: var(--p-margin);
+                margin-left: calc(1 * var(--p-margin));//🧙‍♂️ change to 2 or 3 (looks nicer) but figure out why it crops (horizontally) image harsher
+                margin-right: calc(1 * var(--p-margin));
             }
             p:first-child {
                 margin-top: var(--margin-between-vertical-item-edges-and-container);
@@ -198,18 +220,20 @@ main { //if accounting for extremely wide-screens, `main` could have a max-width
 }
 
 footer {
+    width: calc(min(850px, 90%)); margin: 0 auto; 
     min-height: var(--footer-height);
-    @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, auto), auto);
-    justify-content: space-evenly;
+    @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, 1fr), auto);
+    // justify-content: space-evenly;
     align-items: start;
+    // text-align: center;
     >* {
-        text-align: center;
         > h4 {
             font-weight: 800;
         }
         p {
             font-size: 14px;
             color: var(--dark-blue-purple);
+            text-align: initial;
         }
     }
     border-top: var(--hf-border);
