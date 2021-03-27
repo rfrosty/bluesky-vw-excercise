@@ -119,10 +119,6 @@ img {
   @include grid-container-template($column-value, $row-value);
   place-items: center;
 }
-
-.hide-from-layout {
-    display: none;
-}
 //STRUCTURAL/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 header {
     height: var(--header-height);
@@ -168,7 +164,7 @@ header {
     }
 }
 
-main { //if accounting for extremely wide-screens, `main` could have a max-width.
+main { 
     min-height: calc(var(--vh100) - var(--header-height) - var(--footer-height));
     >* {
         max-width: var(--direct-descendants-of-main-max-width); margin: 0 auto;

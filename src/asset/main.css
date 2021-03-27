@@ -94,10 +94,6 @@ img {
   min-height: 0;
 }
 
-.hide-from-layout {
-  display: none;
-}
-
 header {
   height: var(--header-height);
   display: -ms-grid;

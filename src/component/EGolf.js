@@ -67,7 +67,6 @@ export default function EGolf() {
                         </section>
                     </main>
                     <footer >
-                        {/*🕶 i) its removing it? - is it true className changes all values in one fell swoop? ii) the right way to do such a thing?🧙‍♂️ */}
                         <section>
                             <h4>Our Stores</h4>
                             <p>Facebook</p>
