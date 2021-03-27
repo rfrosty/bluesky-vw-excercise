@@ -3,9 +3,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Intructions: 1. `npm i`. 2. `npm start`.
 
-This is a handmade fully-responsive website that does not use any templates like bootstrap. 
+This is a handmade fully-responsive website that does not use any CSS templates like bootstrap. 
 
-It's written in response to a coding challenge set out by a company who was interviewing me. This is the prompt:
+It has been written as part of a coding challenge set out by a company who interviewed me. This is the prompt:
 
 There is a VW client called “Premium Volkswagen” who are looking for a new car page designed for the new Volkswagen e-Golf
 
