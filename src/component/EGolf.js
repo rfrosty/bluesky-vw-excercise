@@ -44,7 +44,7 @@ export default function EGolf() {
             {displaySmallMenu && <SmallMenu setDisplaySmallMenu={setDisplaySmallMenu} displaySmallMenuRef={displaySmallMenuRef} />}
 
             {!displaySmallMenu &&
-                <section>
+                <>
                     <header>
                         <img src={logo} alt="volkswagen-logo" />
                         <nav>
@@ -87,7 +87,7 @@ export default function EGolf() {
                             <p>Cookies</p>
                         </section>
                     </footer>
-                </section>
+                </>
             }
         </>
     )

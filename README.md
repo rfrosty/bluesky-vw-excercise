@@ -3,7 +3,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Intructions: 1. `npm i`. 2. `npm start`.
 
-This is a handmade fully-responsive website that does not use any CSS templates like bootstrap. 
+This is a handmade fully-responsive website designed on a 13-inch Mac that does not use any CSS templates like bootstrap. 
 
 It has been written as part of a coding challenge set out by a company who interviewed me. This is the prompt:
 

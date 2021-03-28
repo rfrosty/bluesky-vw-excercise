@@ -1,6 +1,6 @@
 //REFACTOR🎣/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//PICTURE & TEXT: 1. when the image has (a larger) min-width  - is there min&max width&height values we want to apply to the img? (further helps this #picture-text-container wrap). 
+//PICTURE & TEXT: 0. Put a header in text. 1. when the image has (a larger) min-width  - is there min&max width&height values we want to apply to the img? (further helps this #picture-text-container wrap). 
 //z) load smaller image? z2) ratio not to cross so that `object-fit: cover` still looks good.
 
 //HEADER: 
@@ -233,4 +233,5 @@ footer {
         }
     }
     border-top: var(--hf-border);
+    padding-bottom: 1em;
 }

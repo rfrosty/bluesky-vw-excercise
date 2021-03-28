@@ -280,6 +280,7 @@ footer {
       -ms-flex-align: start;
           align-items: start;
   border-top: var(--hf-border);
+  padding-bottom: 1em;
 }
 
 footer > * > h4 {
