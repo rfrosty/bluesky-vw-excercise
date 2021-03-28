@@ -6,10 +6,6 @@
   color: unset;
 }
 
-#root {
-  min-width: var(--min-width-of-page);
-}
-
 h1, h2, h3, h4 {
   font-weight: initial;
 }
@@ -90,8 +86,6 @@ img {
      object-fit: contain;
   width: 100%;
   height: 100%;
-  min-width: 0;
-  min-height: 0;
 }
 
 header {
@@ -100,8 +94,8 @@ header {
   display: grid;
   -ms-grid-columns: 20% 40%;
       grid-template-columns: 20% 40%;
-  -ms-grid-rows: 1fr;
-      grid-template-rows: 1fr;
+  -ms-grid-rows: minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: end;
@@ -268,19 +262,35 @@ main #picture-text-container > div > *:last-child {
 footer {
   width: calc(min(850px, 90%));
   margin: 0 auto;
-  min-height: var(--footer-height);
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (1fr)[3];
-      grid-template-columns: repeat(3, 1fr);
-  -ms-grid-rows: auto;
-      grid-template-rows: auto;
-  place-items: center;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   border-top: var(--hf-border);
   padding-bottom: 1em;
+}
+
+footer > * {
+  -ms-flex-preferred-size: 0px;
+      flex-basis: 0px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 0 2em;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (max-width: 400px) {
+  footer > * {
+    -webkit-box-pack: initial;
+        -ms-flex-pack: initial;
+            justify-content: initial;
+  }
 }
 
 footer > * > h4 {
@@ -291,5 +301,11 @@ footer > * p {
   font-size: 14px;
   color: var(--dark-blue-purple);
   text-align: initial;
+}
+
+@media screen and (max-width: 700px) {
+  footer {
+    width: 100%;
+  }
 }
 /*# sourceMappingURL=main.css.map */

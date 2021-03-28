@@ -3,13 +3,15 @@
 //PICTURE & TEXT: 0. Put a header in text. 1. when the image has (a larger) min-width  - is there min&max width&height values we want to apply to the img? (further helps this #picture-text-container wrap). 
 //z) load smaller image? z2) ratio not to cross so that `object-fit: cover` still looks good.
 
-//HEADER: 
+//HEADER:
 
 //FOOTER:
-//z01. rewrite the whole thing in flex
+//z03. profes website's border-top somehow correlates with size of content. You arbritrarily set it to 90%. (And it jumps to 100%). 
+//z02. when grid, amend it so that it can cope, neatly, with a title (or, I suppose, 'entry') spanning 2+ lines and all 'cells' still being horizontally adjacent
 
 //ANIMATIONS: HEADER: 1. Underline menu-items. 2. Menu, in non-mobile mode, opens up from side.
 //SCALING-FOR-A-BIG-SCREEN: 
+//SAFARI: 
 //RESETS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 *, ::before, ::after {
     margin: 0;
@@ -18,7 +20,7 @@
 }
 
 #root {
-    min-width: var(--min-width-of-page);
+    // min-width: var(--min-width-of-page);
 }
 
 h1, h2, h3, h4 {
@@ -105,8 +107,6 @@ img {
     object-fit: contain;
     width: 100%;
     height: 100%;
-    min-width: 0;
-    min-height: 0;
 }
 
 @mixin grid-container-template($column-value: 1fr, $row-value: 1fr) {
@@ -122,7 +122,7 @@ img {
 //STRUCTURAL/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 header {
     height: var(--header-height);
-    @include grid-container-template(20% 40%); justify-content: end;
+    @include grid-container-template(20% 40%, minmax(0, 1fr)); justify-content: end;
     > img {
         height: 100%;//var(--header-height);
     }
@@ -216,13 +216,20 @@ main {
 }
 
 footer {
-    width: calc(min(850px, 90%)); margin: 0 auto; 
-    min-height: var(--footer-height);
-    @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, 1fr), auto);
-    // justify-content: space-evenly;
-    align-items: start;
-    // text-align: center;
+    width: calc(min(850px, 90%)); 
+    margin: 0 auto; 
+    display: flex; flex-wrap: wrap; 
+    //GRID
+    // @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, 1fr), auto); column-gap: 2em;
+    // align-items: start;
     >* {
+        flex-basis: 0px;
+        flex-grow: 1;
+        padding: 0 2em;
+        display: grid; justify-content: center;//🧙‍♂️if applying this, sol.i) need a magic-num break-point where you stop centering content of sections sol.ii) 
+        @media screen and (max-width: 400px) {
+            justify-content: initial;
+        }
         > h4 {
             font-weight: 800;
         }
@@ -234,4 +241,7 @@ footer {
     }
     border-top: var(--hf-border);
     padding-bottom: 1em;
+    @media screen and (max-width: $vw-suitable-for-small-menu) {
+        width: 100%;
+    }
 }
