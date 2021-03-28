@@ -1,9 +1,12 @@
 //REFACTOR🎣/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//PICTURE & TEXT: 0. Put a header in text. 1. when the image has (a larger) min-width  - is there min&max width&height values we want to apply to the img? (further helps this #picture-text-container wrap). 
-//z) load smaller image? z2) ratio not to cross so that `object-fit: cover` still looks good.
+//PICTURE & TEXT: 
+//z01. confident I can jigger `img` about to get how I want.
+//z02. load smaller image?
+//z03. ratio not to cross so that `object-fit: cover` still looks good.
 
 //HEADER:
+//z01: rewrite header in flex.
 
 //FOOTER:
 //z03. profes website's border-top somehow correlates with size of content. You arbritrarily set it to 90%. (And it jumps to 100%). 
@@ -23,12 +26,15 @@
     // min-width: var(--min-width-of-page);
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
     font-weight: initial;
 }
 
 h1, h2 {
     font-size: 1.5em;
+    margin: 2rem 0;//0.83rem 0;
+    text-align: center;
+    // font-weight: 700;
 }
 
 h3 {
@@ -84,7 +90,7 @@ html {
     --grey: #6a767d;
     --dark-grey: #3b4145;
     //dimensions
-    --direct-descendants-of-main-max-width: 2150px;
+    --direct-descendants-of-main-max-width: 2000px;
     --min-width-of-page: 320px;
     //header
     --header-height: clamp(75px, 0.125 * var(--vh100), 5rem);
@@ -182,17 +188,18 @@ main {
         }
         > img {
             object-fit: cover;
-            width: var(--percentage-of-image);
+            width: var(--percentage-of-image);//calc(max(500px, var(--percentage-of-image)));
             height: auto;
-            min-height: var(--golf-min-height);//🧙‍♂️lucky that this isn't messing up the 0px value (in resets) that seemed to be required
-            // max-height: 500px;
+            min-height: 400px;//var(--golf-min-height);
+            max-height: 500px;
             background-color: var(--dark-blue);
             @media screen and (min-width: 1200px) {
-                object-fit: contain;
+                // object-fit: contain;
+                object-position: 50% 70%;
             }
         }
         > div {
-            width: calc(max(30ch, 100% - var(--percentage-of-image))); //max-height: 600px;
+            width: calc(max(35ch, 100% - var(--percentage-of-image)));//max-height: 600px;
             @include grid-container-horizontally-and-vertically-center-GIs(auto, repeat(3, auto)); align-content: center;
             * {
                 max-width: var(--max-character-width);

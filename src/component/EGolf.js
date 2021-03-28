@@ -60,6 +60,7 @@ export default function EGolf() {
                         <section id='picture-text-container'>
                             <img src={golf} alt="car-golf" />
                             <div>
+                                <h2>Lorum Ipsum Dolor Sit Amet</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor vitae purus faucibus ornare suspendisse sed.</p>
                                 <p>Tellus integer feugiat scelerisque varius morbi enim nunc faucibus. Velit scelerisque in dictum non consectetur.</p>
                                 <button>Take the tour</button>
