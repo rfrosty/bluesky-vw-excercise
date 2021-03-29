@@ -14,6 +14,11 @@ h1, h2 {
   font-size: 1.5em;
   margin: 2rem 0;
   text-align: center;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2em;
 }
 
 h3 {
@@ -53,6 +58,36 @@ button {
   background-color: initial;
   font: initial;
   font-family: inherit;
+  padding: initial;
+  border-width: initial;
+  border-style: initial;
+  border-color: initial;
+  -o-border-image: initial;
+     border-image: initial;
+  background-color: var(--dark-blue);
+  color: white;
+  padding: calc( 0.5 * var(--p-margin)) calc( 2 * var(--p-margin));
+  border-radius: var(--arbitrarily-large-number);
+}
+
+input[type="submit" i] {
+  -webkit-appearance: auto;
+     -moz-appearance: auto;
+          appearance: auto;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  white-space: pre;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  text-align: center;
+  cursor: default;
+  color: initial;
+  background-color: initial;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: initial;
   border-width: initial;
   border-style: initial;
@@ -189,6 +224,10 @@ main {
 
 main > * {
   max-width: var(--direct-descendants-of-main-max-width);
+  margin: 1em auto;
+}
+
+main > *:first-child {
   margin: 0 auto;
 }
 
@@ -246,20 +285,40 @@ main #picture-text-container > div * {
   margin-right: calc(1 * var(--p-margin));
 }
 
+main #picture-text-container > div button {
+  margin-top: calc(1 * var(--p-margin));
+}
+
 main #picture-text-container > div p:first-child {
   margin-top: var(--margin-between-vertical-item-edges-and-container);
 }
 
-main #picture-text-container > div button {
-  background-color: var(--dark-blue);
-  color: white;
-  padding: calc( 0.5 * var(--p-margin)) calc( 2 * var(--p-margin));
-  border-radius: var(--arbitrarily-large-number);
-  margin-top: calc(1 * var(--p-margin));
-}
-
 main #picture-text-container > div > *:last-child {
   margin-bottom: var(--margin-between-vertical-item-edges-and-container);
+}
+
+main h1 {
+  margin: 1rem auto;
+}
+
+main form {
+  width: calc(min(850px, 90%));
+  border: solid 1px var(--dark-blue);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main form > * {
+  margin: 1em;
 }
 
 footer {

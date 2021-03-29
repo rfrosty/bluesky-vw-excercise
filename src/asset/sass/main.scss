@@ -34,7 +34,11 @@ h1, h2 {
     font-size: 1.5em;
     margin: 2rem 0;//0.83rem 0;
     text-align: center;
-    // font-weight: 700;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 2em;
 }
 
 h3 {
@@ -74,6 +78,27 @@ button {
     padding: initial;//1px 6px;
     border-width: initial;//2px;
     border-style: initial;//outset;
+    border-color: initial;
+    border-image: initial;
+    //particular to this project:
+    background-color: var(--dark-blue); color: white;
+    padding: calc( 0.5 * var(--p-margin)) calc( 2 * var(--p-margin));
+    border-radius: var(--arbitrarily-large-number);
+}
+
+input[type="submit" i] {
+    appearance: auto;
+    user-select: none;
+    white-space: pre;
+    align-items: flex-start;
+    text-align: center;
+    cursor: default;
+    color: initial;
+    background-color: initial;
+    box-sizing: border-box;
+    padding: initial;
+    border-width: initial;
+    border-style: initial;
     border-color: initial;
     border-image: initial;
 }
@@ -173,8 +198,15 @@ header {
 main { 
     min-height: calc(var(--vh100) - var(--header-height) - var(--footer-height));
     >* {
-        max-width: var(--direct-descendants-of-main-max-width); margin: 0 auto;
+        max-width: var(--direct-descendants-of-main-max-width); margin: 1em auto;
     }
+    >*:first-child {
+        margin: 0 auto;
+    }
+    // >*:last-child {
+    //     margin-top: 2em;
+    //     margin-bottom: 2em;
+    // }
     #picture-text-container {
         --percentage-of-image: 55%;
         --margin-between-vertical-item-edges-and-container: calc(2 * var(--p-margin));
@@ -206,18 +238,26 @@ main {
                 margin-left: calc(1 * var(--p-margin));//🧙‍♂️ change to 2 or 3 (looks nicer) but figure out why it crops (horizontally) image harsher
                 margin-right: calc(1 * var(--p-margin));
             }
+            button {
+                margin-top: calc(1 * var(--p-margin));
+            }
             p:first-child {
                 margin-top: var(--margin-between-vertical-item-edges-and-container);
-            }
-            button {
-                background-color: var(--dark-blue); color: white;
-                padding: calc( 0.5 * var(--p-margin)) calc( 2 * var(--p-margin));
-                border-radius: var(--arbitrarily-large-number);
-                margin-top: calc(1 * var(--p-margin));
             }
             >*:last-child {
                 margin-bottom: var(--margin-between-vertical-item-edges-and-container);
             }
+        }
+    }
+    h1 {
+        margin: 1rem auto;
+    }
+    form {
+        width: calc(min(850px, 90%));
+        border: solid 1px var(--dark-blue); //border-radius: var(--arbitrarily-large-number);
+        display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+        > * {
+            margin: 1em;
         }
     }
 }
