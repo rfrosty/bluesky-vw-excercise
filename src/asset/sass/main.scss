@@ -5,10 +5,13 @@
 //z02. load smaller image?
 //z03. ratio not to cross so that `object-fit: cover` still looks good.
 
-//HEADER:
+//FORM
+//z01 space between title and 'take the tour', in mobile becomes too big.
+//HEADER: notice how cells seem to unevenly shrink when there's overflow
 //z01: rewrite header in flex.
 
 //FOOTER:
+//z01. make footer back to how it was in terms of its 'entries' horizontally align perfectly.
 //z03. profes website's border-top somehow correlates with size of content. You arbritrarily set it to 90%. (And it jumps to 100%). 
 //z02. when grid, amend it so that it can cope, neatly, with a title (or, I suppose, 'entry') spanning 2+ lines and all 'cells' still being horizontally adjacent
 
@@ -111,6 +114,8 @@ html {
     //colors
     --dark-blue: #001e50;
     --dark-blue-purple: #201b65;
+    --orange: #e65019;
+    --light-mint: #19e6a2;
     --light-blue: #00B1EB;
     --grey: #6a767d;
     --dark-grey: #3b4145;
@@ -202,6 +207,7 @@ main {
     }
     >*:first-child {
         margin: 0 auto;
+        // border-bottom: solid 1px var(--dark-blue);   
     }
     // >*:last-child {
     //     margin-top: 2em;
@@ -246,18 +252,32 @@ main {
             }
             >*:last-child {
                 margin-bottom: var(--margin-between-vertical-item-edges-and-container);
+                @media screen and (max-width: 745px) {
+                    // margin-bottom: 1rem;
+                }
             }
         }
     }
-    h1 {
-        margin: 1rem auto;
-    }
-    form {
-        width: calc(min(850px, 90%));
-        border: solid 1px var(--dark-blue); //border-radius: var(--arbitrarily-large-number);
-        display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
-        > * {
-            margin: 1em;
+    #border-container {
+        width: 40%;
+        // border: solid 1px var(--dark-blue);
+        // border-top: solid 1px var(--dark-blue);   
+        h1 {
+            // display: none;
+            // margin-bottom: 1rem;// margin: 1rem auto; 
+        }
+        form {
+            width: calc(min(850px, 90%));
+            // padding-top: 1em;
+            margin: 0 auto;
+            // border: solid 1px var(--dark-blue); //border-radius: var(--arbitrarily-large-number);
+            display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+            > * {
+                margin: 0 1em 1em 0em;
+            }
+            button {
+                background-color: var(--orange);
+            }
         }
     }
 }

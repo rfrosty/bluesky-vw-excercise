@@ -66,18 +66,20 @@ export default function EGolf() {
                                 <button>Take the tour</button>
                             </div>
                         </section>
-                        <h1>Register Interest</h1>
-                        <form>
-                            <section>
-                                <label for="name">Name</label>
-                                <input id="name" required />
-                            </section>
-                            <section>
-                                <label for="email">Email</label>
-                                <input type="email" id="email" required />
-                            </section>
-                            <button type="submit">Submit</button>
-                        </form>
+                        <section id="border-container">
+                            <h1>Register Interest</h1>
+                            <form>
+                                <section>
+                                    <label for="name">Name </label>
+                                    <input id="name" required />
+                                </section>
+                                <section>
+                                    <label for="email">Email </label>
+                                    <input type="email" id="email" required />
+                                </section>
+                                <button type="submit">Submit</button>
+                            </form>
+                        </section>
                     </main>
                     <footer >
                         <section>

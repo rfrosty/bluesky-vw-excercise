@@ -100,6 +100,8 @@ html {
   font-family: 'Nunito', sans-serif;
   --dark-blue: #001e50;
   --dark-blue-purple: #201b65;
+  --orange: #e65019;
+  --light-mint: #19e6a2;
   --light-blue: #00B1EB;
   --grey: #6a767d;
   --dark-grey: #3b4145;
@@ -297,13 +299,13 @@ main #picture-text-container > div > *:last-child {
   margin-bottom: var(--margin-between-vertical-item-edges-and-container);
 }
 
-main h1 {
-  margin: 1rem auto;
+main #border-container {
+  width: 40%;
 }
 
-main form {
+main #border-container form {
   width: calc(min(850px, 90%));
-  border: solid 1px var(--dark-blue);
+  margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -317,8 +319,12 @@ main form {
           align-items: center;
 }
 
-main form > * {
-  margin: 1em;
+main #border-container form > * {
+  margin: 0 1em 1em 0em;
+}
+
+main #border-container form button {
+  background-color: var(--orange);
 }
 
 footer {
