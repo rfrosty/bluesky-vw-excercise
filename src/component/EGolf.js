@@ -63,15 +63,21 @@ export default function EGolf() {
                                 <h2>Lorum Ipsum Dolor Sit Amet</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor vitae purus faucibus ornare suspendisse sed.</p>
                                 <p>Tellus integer feugiat scelerisque varius morbi enim nunc faucibus. Velit scelerisque in dictum non consectetur.</p>
-                                <button>Take the tour</button>
+                                <div className="button-container">
+                                    <button>Take the tour</button>
+                                </div>
                             </div>
                         </section>
-                        <section id="border-container">
+                        <section id="form-container">
                             <h1>Register Interest</h1>
                             <form>
                                 <section>
-                                    <label for="name">Name </label>
-                                    <input id="name" required />
+                                    <label for="first-name">First Name </label>
+                                    <input id="first-name" required />
+                                </section>
+                                <section>
+                                    <label for="last-name">Last Name </label>
+                                    <input id="last-name" required />
                                 </section>
                                 <section>
                                     <label for="email">Email </label>
@@ -80,26 +86,33 @@ export default function EGolf() {
                                 <button type="submit">Submit</button>
                             </form>
                         </section>
+                        {/* <div id="scroll-bar-test">minus scrollbar width</div> */}
                     </main>
                     <footer >
                         <section>
-                            <h4>Our Stores</h4>
-                            <p>Facebook</p>
-                            <p>Instagram</p>
-                            <p>Twitter</p>
+                            <div className="wrapper">
+                                <h4>Our Stores</h4>
+                                <p>Facebook</p>
+                                <p>Instagram</p>
+                                <p>Twitter</p>
+                            </div>
                         </section>
                         <section>
-                            <h4>Company</h4>
-                            <p>Careers</p>
-                            <p>App</p>
-                            <p>Investor Relations</p>
-                            <p>Statements</p>
+                            <div className="wrapper">
+                                <h4>Company</h4>
+                                <p>Careers</p>
+                                <p>App</p>
+                                <p>Investor Relations</p>
+                                <p>Statements</p>
+                            </div>
                         </section>
                         <section>
-                            <h4>Legal</h4>
-                            <p>Terms &amp; Conditions</p>
-                            <p>Privacy</p>
-                            <p>Cookies</p>
+                            <div className="wrapper">
+                                <h4>Legal</h4>
+                                <p>Terms &amp; Conditions</p>
+                                <p>Privacy</p>
+                                <p>Cookies</p>
+                            </div>
                         </section>
                     </footer>
                 </>

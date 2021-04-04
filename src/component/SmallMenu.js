@@ -11,9 +11,9 @@ export default function SmallMenu({ setDisplaySmallMenu, displaySmallMenuRef }) 
             <div id="pseudo-header" onClick={removeSmallMenu}>
                 <img id="exit-image" src={hamburgerExit} alt="exit-sign" />
             </div>
-            <h4>More Cars</h4>
-            <h4>About</h4>
-            <h4>Contact</h4>
+            <h3>More Cars</h3>
+            <h3>About</h3>
+            <h3>Contact</h3>
         </nav>
     )
 }

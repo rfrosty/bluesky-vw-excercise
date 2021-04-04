@@ -1,19 +1,24 @@
 //REFACTOR🎣/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//HEADER: 
+//z02. take into account vertical-scroll-bar.
+//z01. rewrite in grid.
+
+//SMALL MENU:
+//z01. refactor to flex.
 
 //PICTURE & TEXT: 
-//z01. confident I can jigger `img` about to get how I want.
 //z02. load smaller image?
 //z03. ratio not to cross so that `object-fit: cover` still looks good.
 
 //FORM
+//🧱do wrapping with CSS-GRID
 //z01 space between title and 'take the tour', in mobile becomes too big.
-//HEADER: notice how cells seem to unevenly shrink when there's overflow
-//z01: rewrite header in flex.
 
 //FOOTER:
-//z01. make footer back to how it was in terms of its 'entries' horizontally align perfectly.
+//z01. magic number's used to determine when `section - justify-content: flex-start` on its `.wrapper` children is enacted.
 //z03. profes website's border-top somehow correlates with size of content. You arbritrarily set it to 90%. (And it jumps to 100%). 
 //z02. when grid, amend it so that it can cope, neatly, with a title (or, I suppose, 'entry') spanning 2+ lines and all 'cells' still being horizontally adjacent
+//z04. make `section` take up full row under certain vw (like in profes websites). 
 
 //ANIMATIONS: HEADER: 1. Underline menu-items. 2. Menu, in non-mobile mode, opens up from side.
 //SCALING-FOR-A-BIG-SCREEN: 
@@ -67,7 +72,7 @@ button {
     text-transform: none;
     text-indent: 0px;
     text-shadow: none;
-    display: inline-block;
+    display: block;
     text-align: center;
     align-items: flex-start;
     cursor: default;
@@ -125,7 +130,7 @@ html {
     //header
     --header-height: clamp(75px, 0.125 * var(--vh100), 5rem);
     --vw-suitable-for-small-menu: 700px;
-    --hamburger-button-height: calc(1.5 * 1rem);
+    --hamburger-button-height: calc(2 * 1rem);//1.5
     --menu-button-width-dimension: 5em;
     --menu-button-horizontal-margin: 0.5em;
     --hf-border: solid var(--dark-blue) 2px;
@@ -163,8 +168,19 @@ header {
         height: 100%;//var(--header-height);
     }
     > nav {
-        @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, minmax(auto, 150px)), 1fr);//need minmax value here
-        justify-content: center;
+        // max-width: 700px;
+        //FLEX
+        display: flex; 
+        align-items: center;
+        // justify-content: space-evenly; 
+        //GRID
+        // @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, 1fr), 1fr);//need minmax value here: `repeat(3, minmax(auto, 150px)), 1fr`
+        // justify-content: center;
+        > * {
+            flex-basis: 0px;
+            flex-grow: 1;
+            text-align: center;
+        }
     }
     @media screen and (max-width: $vw-suitable-for-small-menu) {//any way to have original CSS (`nav`) so that it positions 'menu' correctly?🧙‍♂️
         > nav {
@@ -181,7 +197,7 @@ header {
 }
 
 #small-menu {
-    height: var(--vh100);
+    min-height: var(--vh100);
     background-color: var(--dark-blue); color: white;
     @include grid-container-horizontally-and-vertically-center-GIs(auto, var(--header-height) repeat(3, 1fr) var(--header-height));
     > * {
@@ -203,24 +219,16 @@ header {
 main { 
     min-height: calc(var(--vh100) - var(--header-height) - var(--footer-height));
     >* {
-        max-width: var(--direct-descendants-of-main-max-width); margin: 1em auto;
+        max-width: var(--direct-descendants-of-main-max-width); margin: 0 auto;
     }
-    >*:first-child {
-        margin: 0 auto;
-        // border-bottom: solid 1px var(--dark-blue);   
-    }
-    // >*:last-child {
-    //     margin-top: 2em;
-    //     margin-bottom: 2em;
-    // }
     #picture-text-container {
         --percentage-of-image: 55%;
         --margin-between-vertical-item-edges-and-container: calc(2 * var(--p-margin));
         --max-height-of-GIs: 200px;
-        display: flex;
+        display: flex; flex-wrap: wrap;
         width: 100vw; //max-height: 600px;
-        flex-wrap: wrap;
         // align-items: center;//great 'back-up value' in case text increases (massively)
+        margin-bottom: 2rem;
         > * {
             flex-grow: 1;
         }
@@ -238,14 +246,19 @@ main {
         }
         > div {
             width: calc(max(35ch, 100% - var(--percentage-of-image)));//max-height: 600px;
-            @include grid-container-horizontally-and-vertically-center-GIs(auto, repeat(3, auto)); align-content: center;
-            * {
+            // @include grid-container-horizontally-and-vertically-center-GIs(auto, repeat(3, auto)); //align-content: end;
+            display: flex; flex-wrap: wrap; justify-content: center; align-content: center;
+            >* {
+                flex-basis: var(--arbitrarily-large-number);
                 max-width: var(--max-character-width);
-                margin-left: calc(1 * var(--p-margin));//🧙‍♂️ change to 2 or 3 (looks nicer) but figure out why it crops (horizontally) image harsher
+                margin-left: calc(1 * var(--p-margin));
                 margin-right: calc(1 * var(--p-margin));
             }
-            button {
+            .button-container {
                 margin-top: calc(1 * var(--p-margin));
+                button {
+                    margin: 0 auto;
+                }
             }
             p:first-child {
                 margin-top: var(--margin-between-vertical-item-edges-and-container);
@@ -258,27 +271,36 @@ main {
             }
         }
     }
-    #border-container {
-        width: 40%;
-        // border: solid 1px var(--dark-blue);
-        // border-top: solid 1px var(--dark-blue);   
+    #form-container {
+        max-width: 800px;//🧙‍♂️reasonable scanning limitation
+        margin-bottom: 1rem;
+        // padding-top: 2rem;
+        // border-top: solid 1px var(--dark-blue); //border: solid 1px var(--dark-blue); 
+        // border-bottom: solid 1px var(--dark-blue); //border: solid 1px var(--dark-blue); 
         h1 {
-            // display: none;
-            // margin-bottom: 1rem;// margin: 1rem auto; 
+            margin-top: 0;
         }
         form {
-            width: calc(min(850px, 90%));
-            // padding-top: 1em;
-            margin: 0 auto;
-            // border: solid 1px var(--dark-blue); //border-radius: var(--arbitrarily-large-number);
-            display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+            // width: calc(min(850px, 90%));
+            margin: 0 auto;// 1rem auto;
+            display: flex; flex-wrap: wrap; justify-content: center; //align-items: center;
+            @media screen and (max-width: 720px) {
+                // justify-content: flex-start;
+                max-width: 300px;
+                //GRID
+            }
             > * {
-                margin: 0 1em 1em 0em;
+                margin: 0 0.5em 1em 0.5em;
+                // flex-basis: var(--arbitrarily-large-number);
             }
             button {
                 background-color: var(--orange);
             }
         }
+    }
+    #scroll-bar-test {
+        background-color: orange;
+        width: calc(100vw - (100vw - 100%));
     }
 }
 
@@ -293,11 +315,17 @@ footer {
         flex-basis: 0px;
         flex-grow: 1;
         padding: 0 2em;
-        display: grid; justify-content: center;//🧙‍♂️if applying this, sol.i) need a magic-num break-point where you stop centering content of sections sol.ii) 
-        @media screen and (max-width: 400px) {
-            justify-content: initial;
+        //FLEX
+        display: flex; justify-content: center;
+        @media screen and (max-width: 400px) {//🧙‍♂️arbitrary number
+            justify-content: flex-start;
         }
-        > h4 {
+        //GRID
+        // display: grid; justify-content: center;//🧙‍♂️if applying this, sol.i) need a magic-num break-point where you stop centering content of sections sol.ii) 
+        // @media screen and (max-width: 400px) {
+        //     justify-content: initial;
+        // }
+        h4 {
             font-weight: 800;
         }
         p {

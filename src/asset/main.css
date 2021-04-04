@@ -45,7 +45,7 @@ button {
   text-transform: none;
   text-indent: 0px;
   text-shadow: none;
-  display: inline-block;
+  display: block;
   text-align: center;
   -webkit-box-align: start;
       -ms-flex-align: start;
@@ -109,7 +109,7 @@ html {
   --min-width-of-page: 320px;
   --header-height: clamp(75px, 0.125 * var(--vh100), 5rem);
   --vw-suitable-for-small-menu: 700px;
-  --hamburger-button-height: calc(1.5 * 1rem);
+  --hamburger-button-height: calc(2 * 1rem);
   --menu-button-width-dimension: 5em;
   --menu-button-horizontal-margin: 0.5em;
   --hf-border: solid var(--dark-blue) 2px;
@@ -146,16 +146,21 @@ header > img {
 }
 
 header > nav {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (minmax(auto, 150px))[3];
-      grid-template-columns: repeat(3, minmax(auto, 150px));
-  -ms-grid-rows: 1fr;
-      grid-template-rows: 1fr;
-  place-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header > nav > * {
+  -ms-flex-preferred-size: 0px;
+      flex-basis: 0px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-align: center;
 }
 
 @media screen and (max-width: 700px) {
@@ -180,7 +185,7 @@ header #menu-button {
 }
 
 #small-menu {
-  height: var(--vh100);
+  min-height: var(--vh100);
   background-color: var(--dark-blue);
   color: white;
   display: -ms-grid;
@@ -226,10 +231,6 @@ main {
 
 main > * {
   max-width: var(--direct-descendants-of-main-max-width);
-  margin: 1em auto;
-}
-
-main > *:first-child {
   margin: 0 auto;
 }
 
@@ -240,9 +241,10 @@ main #picture-text-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 100vw;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  width: 100vw;
+  margin-bottom: 2rem;
 }
 
 main #picture-text-container > * {
@@ -270,25 +272,32 @@ main #picture-text-container > img {
 
 main #picture-text-container > div {
   width: calc(max(35ch, 100% - var(--percentage-of-image)));
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: auto;
-      grid-template-columns: auto;
-  -ms-grid-rows: (auto)[3];
-      grid-template-rows: repeat(3, auto);
-  place-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -ms-flex-line-pack: center;
       align-content: center;
 }
 
-main #picture-text-container > div * {
+main #picture-text-container > div > * {
+  -ms-flex-preferred-size: var(--arbitrarily-large-number);
+      flex-basis: var(--arbitrarily-large-number);
   max-width: var(--max-character-width);
   margin-left: calc(1 * var(--p-margin));
   margin-right: calc(1 * var(--p-margin));
 }
 
-main #picture-text-container > div button {
+main #picture-text-container > div .button-container {
   margin-top: calc(1 * var(--p-margin));
+}
+
+main #picture-text-container > div .button-container button {
+  margin: 0 auto;
 }
 
 main #picture-text-container > div p:first-child {
@@ -299,12 +308,16 @@ main #picture-text-container > div > *:last-child {
   margin-bottom: var(--margin-between-vertical-item-edges-and-container);
 }
 
-main #border-container {
-  width: 40%;
+main #form-container {
+  max-width: 800px;
+  margin-bottom: 1rem;
 }
 
-main #border-container form {
-  width: calc(min(850px, 90%));
+main #form-container h1 {
+  margin-top: 0;
+}
+
+main #form-container form {
   margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -314,17 +327,25 @@ main #border-container form {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
-main #border-container form > * {
-  margin: 0 1em 1em 0em;
+@media screen and (max-width: 720px) {
+  main #form-container form {
+    max-width: 300px;
+  }
 }
 
-main #border-container form button {
+main #form-container form > * {
+  margin: 0 0.5em 1em 0.5em;
+}
+
+main #form-container form button {
   background-color: var(--orange);
+}
+
+main #scroll-bar-test {
+  background-color: orange;
+  width: calc(100vw - (100vw - 100%));
 }
 
 footer {
@@ -346,8 +367,9 @@ footer > * {
       -ms-flex-positive: 1;
           flex-grow: 1;
   padding: 0 2em;
-  display: -ms-grid;
-  display: grid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -355,13 +377,13 @@ footer > * {
 
 @media screen and (max-width: 400px) {
   footer > * {
-    -webkit-box-pack: initial;
-        -ms-flex-pack: initial;
-            justify-content: initial;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
   }
 }
 
-footer > * > h4 {
+footer > * h4 {
   font-weight: 800;
 }
 
