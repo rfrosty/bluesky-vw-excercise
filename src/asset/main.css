@@ -105,7 +105,7 @@ html {
   --light-blue: #00B1EB;
   --grey: #6a767d;
   --dark-grey: #3b4145;
-  --direct-descendants-of-main-max-width: 2000px;
+  --direct-descendants-of-main-max-width: 2560px;
   --min-width-of-page: 320px;
   --header-height: clamp(75px, 0.125 * var(--vh100), 5rem);
   --vw-suitable-for-small-menu: 700px;

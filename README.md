@@ -5,9 +5,9 @@ Intructions: 1. `npm i`. 2. `npm start`.
 
 This is a handmade fully-responsive website designed on a 13-inch Mac that does not use any CSS templates like bootstrap. 
 
-It has been written as part of a coding challenge set out by a company who interviewed me. This is the prompt:
+It has been written as part of a coding challenge set out by a company who interviewed me. This was the prompt:
 
-There is a VW client called “Premium Volkswagen” who are looking for a new car page designed for the new Volkswagen e-Golf
+There is a VW client called “Premium Volkswagen” who are looking for a new car page designed for the new Volkswagen e-Golf.
 
 The page needs to include a header with a navigation bar, a main image, a way for customers to register their interest in the car to the dealership (a form, a call to action, whatever you think is most appropriate) and finally a footer. It can include anything else you think is cool/appropriate.
 
