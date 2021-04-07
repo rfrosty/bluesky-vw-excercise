@@ -1,12 +1,13 @@
 //REFACTOR🎣/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //HEADER: 
-//z02. take into account vertical-scroll-bar.
-//z01. rewrite in grid.
+//z01. rewrite in flex.
+//z02. take into account vertical-scroll-bar.🧙‍♂️.
 
 //SMALL MENU:
 //z01. refactor to flex.
 
 //PICTURE & TEXT: 
+//z01. SO.  
 //z02. load smaller image?
 //z03. ratio not to cross so that `object-fit: cover` still looks good.
 
@@ -23,6 +24,7 @@
 //ANIMATIONS: HEADER: 1. Underline menu-items. 2. Menu, in non-mobile mode, opens up from side.
 //SCALING-FOR-A-BIG-SCREEN: 
 //SAFARI: 
+//z02. once .svgs understood, read CSSTricks article to help Safari load svg consistently (you made a SO question about this (that included a Youtube demo video)).
 //RESETS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 *, ::before, ::after {
     margin: 0;
@@ -180,6 +182,11 @@ header {
             flex-basis: 0px;
             flex-grow: 1;
             text-align: center;
+            #menu-button {
+                margin: 0 var(--menu-button-horizontal-margin);
+                height: var(--hamburger-button-height);
+                width: var(--menu-button-width-dimension);
+            }
         }
     }
     @media screen and (max-width: $vw-suitable-for-small-menu) {//any way to have original CSS (`nav`) so that it positions 'menu' correctly?🧙‍♂️
@@ -189,11 +196,6 @@ header {
         }
     }
     border-bottom: var(--hf-border);
-    #menu-button {
-        margin: 0 var(--menu-button-horizontal-margin);
-        height: var(--hamburger-button-height);
-        width: var(--menu-button-width-dimension);
-    }
 }
 
 #small-menu {
@@ -226,27 +228,26 @@ main {
         --margin-between-vertical-item-edges-and-container: calc(2 * var(--p-margin));
         --max-height-of-GIs: 200px;
         display: flex; flex-wrap: wrap;
-        width: 100vw; //max-height: 600px;
-        // align-items: center;//great 'back-up value' in case text increases (massively)
         margin-bottom: 2rem;
         > * {
             flex-grow: 1;
         }
-        > img {
-            object-fit: cover;
+        > .img-container {
             width: var(--percentage-of-image);//calc(max(500px, var(--percentage-of-image)));
             height: auto;
             min-height: 400px;//var(--golf-min-height);
             max-height: 500px;
             background-color: var(--dark-blue);
-            @media screen and (min-width: 1200px) {
-                // object-fit: contain;
-                object-position: 50% 70%;
+            > img {
+                object-fit: cover;
+                @media screen and (min-width: 1200px) {
+                    object-position: 50% 70%;
+                    // object-fit: contain;
+                }
             }
         }
-        > div {
+        > .txt-container {
             width: calc(max(35ch, 100% - var(--percentage-of-image)));//max-height: 600px;
-            // @include grid-container-horizontally-and-vertically-center-GIs(auto, repeat(3, auto)); //align-content: end;
             display: flex; flex-wrap: wrap; justify-content: center; align-content: center;
             >* {
                 flex-basis: var(--arbitrarily-large-number);

@@ -1,4 +1,4 @@
-import hamburgerExit from '../asset/images/hamburger-exit.svg';
+import hamburgerExit from '../asset/images/hamburger-exit.png';
 
 export default function SmallMenu({ setDisplaySmallMenu, displaySmallMenuRef }) {
 

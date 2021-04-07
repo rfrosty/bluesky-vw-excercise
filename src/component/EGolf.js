@@ -1,13 +1,13 @@
 import logo from '../asset/images/logo.svg';
 import golf from '../asset/images/golf-car.png';
-import hamburger from '../asset/images/hamburger.svg';
+import hamburger from '../asset/images/hamburger.png';
 import { useState, useEffect, useRef } from 'react';
 import SmallMenu from './SmallMenu';
 
 export default function EGolf() {
     let [isViewportSuitableForSmallMenuState, setIsViewportSuitableForSmallMenuState] = useState(false);
     let [displaySmallMenu, setDisplaySmallMenu] = useState(false);
-    let displaySmallMenuRef = useRef(false);//🧙‍♂️having to use this because of stale closure
+    let displaySmallMenuRef = useRef(false);//🧙‍♂️having to use this because of stale closure.
     let viewportSuitableForSmallMenuRef = useRef(700);//🧙‍♂️is there a better way than using arbitrary point-break?
 
     function isViewportSuitableForSmallMenu() {
@@ -49,7 +49,9 @@ export default function EGolf() {
                         <img src={logo} alt="volkswagen-logo" />
                         <nav>
                             {isViewportSuitableForSmallMenuState &&
-                                <img id="menu-button" src={hamburger} onClick={turnOnSmallMenu} alt="menu-button" />
+                                <div className="img-container">
+                                    <img id="menu-button" src={hamburger} type="image/svg+xml" onClick={turnOnSmallMenu} alt="menu-button"></img>
+                                </div>
                             }
                             {!isViewportSuitableForSmallMenuState && <div>More Cars</div>}
                             {!isViewportSuitableForSmallMenuState && <div>About</div>}
@@ -58,8 +60,10 @@ export default function EGolf() {
                     </header >
                     <main>
                         <section id='picture-text-container'>
-                            <img src={golf} alt="car-golf" />
-                            <div>
+                            <div class="img-container">
+                                <img src={golf} alt="car-golf" />
+                            </div>
+                            <div class="txt-container">
                                 <h2>Lorum Ipsum Dolor Sit Amet</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor vitae purus faucibus ornare suspendisse sed.</p>
                                 <p>Tellus integer feugiat scelerisque varius morbi enim nunc faucibus. Velit scelerisque in dictum non consectetur.</p>

@@ -163,6 +163,12 @@ header > nav > * {
   text-align: center;
 }
 
+header > nav > * #menu-button {
+  margin: 0 var(--menu-button-horizontal-margin);
+  height: var(--hamburger-button-height);
+  width: var(--menu-button-width-dimension);
+}
+
 @media screen and (max-width: 700px) {
   header > nav {
     display: -ms-grid;
@@ -176,12 +182,6 @@ header > nav > * {
         -ms-flex-pack: end;
             justify-content: end;
   }
-}
-
-header #menu-button {
-  margin: 0 var(--menu-button-horizontal-margin);
-  height: var(--hamburger-button-height);
-  width: var(--menu-button-width-dimension);
 }
 
 #small-menu {
@@ -243,7 +243,6 @@ main #picture-text-container {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: 100vw;
   margin-bottom: 2rem;
 }
 
@@ -253,9 +252,7 @@ main #picture-text-container > * {
           flex-grow: 1;
 }
 
-main #picture-text-container > img {
-  -o-object-fit: cover;
-     object-fit: cover;
+main #picture-text-container > .img-container {
   width: var(--percentage-of-image);
   height: auto;
   min-height: 400px;
@@ -263,14 +260,19 @@ main #picture-text-container > img {
   background-color: var(--dark-blue);
 }
 
+main #picture-text-container > .img-container > img {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 @media screen and (min-width: 1200px) {
-  main #picture-text-container > img {
+  main #picture-text-container > .img-container > img {
     -o-object-position: 50% 70%;
        object-position: 50% 70%;
   }
 }
 
-main #picture-text-container > div {
+main #picture-text-container > .txt-container {
   width: calc(max(35ch, 100% - var(--percentage-of-image)));
   display: -webkit-box;
   display: -ms-flexbox;
@@ -284,7 +286,7 @@ main #picture-text-container > div {
       align-content: center;
 }
 
-main #picture-text-container > div > * {
+main #picture-text-container > .txt-container > * {
   -ms-flex-preferred-size: var(--arbitrarily-large-number);
       flex-basis: var(--arbitrarily-large-number);
   max-width: var(--max-character-width);
@@ -292,19 +294,19 @@ main #picture-text-container > div > * {
   margin-right: calc(1 * var(--p-margin));
 }
 
-main #picture-text-container > div .button-container {
+main #picture-text-container > .txt-container .button-container {
   margin-top: calc(1 * var(--p-margin));
 }
 
-main #picture-text-container > div .button-container button {
+main #picture-text-container > .txt-container .button-container button {
   margin: 0 auto;
 }
 
-main #picture-text-container > div p:first-child {
+main #picture-text-container > .txt-container p:first-child {
   margin-top: var(--margin-between-vertical-item-edges-and-container);
 }
 
-main #picture-text-container > div > *:last-child {
+main #picture-text-container > .txt-container > *:last-child {
   margin-bottom: var(--margin-between-vertical-item-edges-and-container);
 }
 

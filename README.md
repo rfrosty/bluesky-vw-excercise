@@ -18,3 +18,7 @@ This must be fluid responsive and elements must be designed accordingly. We enco
 Please do not use a template, but we encourage use of front end frameworks (such as boostrap).
 
 https://www.volkswagen.co.uk/new/e-golf 
+
+---
+
+Browsers: Chrome ✅ Firefox ✅ Safari ❌
