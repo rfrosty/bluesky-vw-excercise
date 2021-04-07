@@ -1,13 +1,16 @@
 //REFACTOR🎣/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//SUM:
+//1. refactoring `header` to use flex.
+//2. implementing new flex technique of allocating padding|margin to FC & FIs anywhere you see fit (start with footer).
+//3. creating the back-up value of the picture(s).
+//4. (optionally) fixing the form with grid.
 //HEADER: 
-//z01. rewrite in flex.
 //z02. take into account vertical-scroll-bar.🧙‍♂️.
 
 //SMALL MENU:
 //z01. refactor to flex.
 
 //PICTURE & TEXT: 
-//z01. SO.  
 //z02. load smaller image?
 //z03. ratio not to cross so that `object-fit: cover` still looks good.
 
@@ -16,6 +19,7 @@
 //z01 space between title and 'take the tour', in mobile becomes too big.
 
 //FOOTER:
+//z05. fix flex-box-related vertical&horizontal-spacing. (Then determine where else this needs fixed).
 //z01. magic number's used to determine when `section - justify-content: flex-start` on its `.wrapper` children is enacted.
 //z03. profes website's border-top somehow correlates with size of content. You arbritrarily set it to 90%. (And it jumps to 100%). 
 //z02. when grid, amend it so that it can cope, neatly, with a title (or, I suppose, 'entry') spanning 2+ lines and all 'cells' still being horizontally adjacent
@@ -165,13 +169,16 @@ img {
 //STRUCTURAL/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 header {
     height: var(--header-height);
-    @include grid-container-template(20% 40%, minmax(0, 1fr)); justify-content: end;
-    > img {
-        height: 100%;//var(--header-height);
-    }
+    //FLEX
+    display: flex; justify-content: flex-end;
+    //GRID
+    // @include grid-container-template(20% 40%, minmax(0, 1fr)); justify-content: end;
+    > .img-container {
+        flex-basis: 20%;
+    } 
     > nav {
-        // max-width: 700px;
         //FLEX
+        flex-basis: 40%;
         display: flex; 
         align-items: center;
         // justify-content: space-evenly; 
@@ -182,18 +189,27 @@ header {
             flex-basis: 0px;
             flex-grow: 1;
             text-align: center;
-            #menu-button {
-                margin: 0 var(--menu-button-horizontal-margin);
-                height: var(--hamburger-button-height);
-                width: var(--menu-button-width-dimension);
+        }
+        @media screen and (max-width: $vw-suitable-for-small-menu) {
+            justify-content: flex-end;
+            > .img-container { //`img #menu-button was actually slightly vertically shorter than her container but making her container `display: flex; align-content: center` fixed it (so that the container became the same sixe of the `img` (32px) - why?
+                flex-basis: initial;
+                flex-grow: initial;
+                display: flex; align-content: center;
+                #menu-button {
+                    margin: 0 var(--menu-button-horizontal-margin);
+                    height: var(--hamburger-button-height);
+                    width: var(--menu-button-width-dimension);
+                }
             }
         }
     }
-    @media screen and (max-width: $vw-suitable-for-small-menu) {//any way to have original CSS (`nav`) so that it positions 'menu' correctly?🧙‍♂️
-        > nav {
-            @include grid-container-horizontally-and-vertically-center-GIs(auto, 1fr);
-            justify-content: end;
-        }
+    @media screen and (max-width: $vw-suitable-for-small-menu) {
+        // > nav {
+            //GRID
+            // @include grid-container-horizontally-and-vertically-center-GIs(auto, 1fr);
+            // justify-content: end;
+        // }
     }
     border-bottom: var(--hf-border);
 }

@@ -46,7 +46,9 @@ export default function EGolf() {
             {!displaySmallMenu &&
                 <>
                     <header>
-                        <img src={logo} alt="volkswagen-logo" />
+                        <section className="img-container">
+                            <img src={logo} alt="volkswagen-logo" />
+                        </section>
                         <nav>
                             {isViewportSuitableForSmallMenuState &&
                                 <div className="img-container">
@@ -57,6 +59,7 @@ export default function EGolf() {
                             {!isViewportSuitableForSmallMenuState && <div>About</div>}
                             {!isViewportSuitableForSmallMenuState && <div>Contact</div>}
                         </nav >
+
                     </header >
                     <main>
                         <section id='picture-text-container'>
