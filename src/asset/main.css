@@ -26,7 +26,7 @@ h3 {
 }
 
 h4 {
-  margin: 2em 0;
+  margin-bottom: 2rem;
 }
 
 p {
@@ -125,6 +125,7 @@ img {
      object-fit: contain;
   width: 100%;
   height: 100%;
+  vertical-align: bottom;
 }
 
 header {
@@ -192,41 +193,60 @@ header > nav > * {
   min-height: var(--vh100);
   background-color: var(--dark-blue);
   color: white;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: auto;
-      grid-template-columns: auto;
-  -ms-grid-rows: var(--header-height) (1fr)[3] var(--header-height);
-      grid-template-rows: var(--header-height) repeat(3, 1fr) var(--header-height);
-  place-items: center;
 }
 
-#small-menu > * {
+#small-menu section[class*=dummy-header] {
   height: var(--header-height);
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: auto;
-      grid-template-columns: auto;
-  -ms-grid-rows: auto;
-      grid-template-rows: auto;
-  place-items: center;
 }
 
-#small-menu > *:first-child {
-  -ms-grid-column-align: end;
-      justify-self: end;
-  -ms-flex-item-align: start;
-      -ms-grid-row-align: start;
-      align-self: start;
+#small-menu .dummy-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-#small-menu > *:first-child #exit-image {
+#small-menu .dummy-header .img-container {
   margin: 0 var(--menu-button-horizontal-margin);
   height: var(--hamburger-button-height);
   width: var(--menu-button-width-dimension);
-  color: initial;
-  -webkit-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(105deg) brightness(110%) contrast(101%);
-          filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(105deg) brightness(110%) contrast(101%);
+}
+
+#small-menu .h3-container {
+  min-height: calc(var(--vh100) - calc(2 * var(--header-height)));
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: initial;
+      -ms-flex-align: initial;
+          align-items: initial;
+}
+
+#small-menu .h3-container > * {
+  -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  min-height: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 main {
@@ -259,7 +279,7 @@ main #picture-text-container > * {
 main #picture-text-container > .img-container {
   width: var(--percentage-of-image);
   height: auto;
-  min-height: 400px;
+  min-height: 422px;
   max-height: 500px;
   background-color: var(--dark-blue);
 }
@@ -273,6 +293,16 @@ main #picture-text-container > .img-container > img {
   main #picture-text-container > .img-container > img {
     -o-object-position: 50% 70%;
        object-position: 50% 70%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  main #picture-text-container > .img-container {
+    min-height: initial;
+  }
+  main #picture-text-container > .img-container #car-img {
+    -o-object-fit: contain;
+       object-fit: contain;
   }
 }
 
@@ -315,7 +345,6 @@ main #picture-text-container > .txt-container > *:last-child {
 }
 
 main #form-container {
-  max-width: 800px;
   margin-bottom: 1rem;
 }
 
@@ -328,11 +357,13 @@ main #form-container form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 @media screen and (max-width: 720px) {
@@ -342,7 +373,7 @@ main #form-container form {
 }
 
 main #form-container form > * {
-  margin: 0 0.5em 1em 0.5em;
+  margin-bottom: 1rem;
 }
 
 main #form-container form button {
@@ -357,13 +388,13 @@ main #scroll-bar-test {
 footer {
   width: calc(min(850px, 90%));
   margin: 0 auto;
+  border-top: var(--hf-border);
+  padding-top: 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  border-top: var(--hf-border);
-  padding-bottom: 1em;
 }
 
 footer > * {
@@ -372,7 +403,8 @@ footer > * {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  padding: 0 2em;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -390,6 +422,7 @@ footer > * {
 }
 
 footer > * h4 {
+  margin-top: initial;
   font-weight: 800;
 }
 

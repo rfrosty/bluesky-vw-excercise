@@ -29,6 +29,20 @@ export default function EGolf() {
             document.documentElement.style.setProperty(`--footer-height`, `${footer.offsetHeight}px`);
         }
     }
+    // function isCarImgDistorted() {
+    //     let [carImg, carImgContainer] = [document.querySelector('#car-img'), document.querySelector(`#picture-text-container > .img-container`)];//console.log(carImgContainer);
+    //     let [carImgHeightAsPixelString, carImgWidthAsPixelString] = [getComputedStyle(carImg).height, getComputedStyle(carImg).width];
+    //     let carImgHeight = carImgHeightAsPixelString.slice(0, (carImgHeightAsPixelString.length - 2));
+    //     let carImgWidth = carImgWidthAsPixelString.slice(0, (carImgWidthAsPixelString.length - 2));
+    //     if ((carImgWidth * 1.11) < carImgHeight) {
+    //         console.log("yes");
+    //         carImg.classList.add('object-fit-contain');
+    //         carImgContainer.classList.add('min-height-initial');
+    //     } else {
+    //         carImg.classList.remove('object-fit-contain');
+    //         carImgContainer.classList.remove('min-height-initial');
+    //     }
+    // }
     function turnOnSmallMenu() {
         setDisplaySmallMenu(true); displaySmallMenuRef.current = true;
     }
@@ -37,6 +51,7 @@ export default function EGolf() {
         isViewportSuitableForSmallMenu(); window.addEventListener('resize', isViewportSuitableForSmallMenu);
         makeVHCSSVariable(); window.addEventListener('resize', makeVHCSSVariable);
         makeFooterHeightCSSVariable(); window.addEventListener('resize', makeFooterHeightCSSVariable);
+        // isCarImgDistorted(); window.addEventListener('resize', isCarImgDistorted);
     }, []);
 
     return (
@@ -64,7 +79,7 @@ export default function EGolf() {
                     <main>
                         <section id='picture-text-container'>
                             <div class="img-container">
-                                <img src={golf} alt="car-golf" />
+                                <img src={golf} alt="car-golf" id="car-img" />
                             </div>
                             <div class="txt-container">
                                 <h2>Lorum Ipsum Dolor Sit Amet</h2>

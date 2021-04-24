@@ -8,12 +8,17 @@ export default function SmallMenu({ setDisplaySmallMenu, displaySmallMenuRef }) 
 
     return (
         <nav id="small-menu">
-            <div id="pseudo-header" onClick={removeSmallMenu}>
-                <img id="exit-image" src={hamburgerExit} alt="exit-sign" />
-            </div>
-            <h3>More Cars</h3>
-            <h3>About</h3>
-            <h3>Contact</h3>
+            <section className="dummy-header" onClick={removeSmallMenu}>
+                <div className="img-container">
+                    <img id="exit-image" src={hamburgerExit} alt="exit-sign" />
+                </div>
+            </section>
+            <section className="h3-container">
+                <h3>More Cars</h3>
+                <h3>About</h3>
+                <h3>Contact</h3>
+            </section>
+            <section className="dummy-header-footer"></section>
         </nav>
     )
 }

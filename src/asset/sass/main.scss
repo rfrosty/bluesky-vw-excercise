@@ -1,34 +1,38 @@
 //REFACTOR🎣/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//SUM:
-//1. refactoring `header` to use flex.
-//2. implementing new flex technique of allocating padding|margin to FC & FIs anywhere you see fit (start with footer).
-//3. creating the back-up value of the picture(s).
-//4. (optionally) fixing the form with grid.
+//TODO:
+//4 (optionally) fixing the form with grid. 
+//footer z01.
+    //4.01 footer>z06.
+//4.02 tweaking.
+//5. host this (at some point).
+
 //HEADER: 
 //z02. take into account vertical-scroll-bar.🧙‍♂️.
 
 //SMALL MENU:
-//z01. refactor to flex.
 
 //PICTURE & TEXT: 
-//z02. load smaller image?
-//z03. ratio not to cross so that `object-fit: cover` still looks good.
+//crop smaller img in photoshop to use & control w/media-queries.
 
 //FORM
 //🧱do wrapping with CSS-GRID
+//z02 make them align vertically all-the-time.
 //z01 space between title and 'take the tour', in mobile becomes too big.
 
 //FOOTER:
-//z05. fix flex-box-related vertical&horizontal-spacing. (Then determine where else this needs fixed).
-//z01. magic number's used to determine when `section - justify-content: flex-start` on its `.wrapper` children is enacted.
+//z01. SO - is this best solution (magic number's used to determine when `section - justify-content: flex-start` on its `.wrapper` children is enacted).
 //z03. profes website's border-top somehow correlates with size of content. You arbritrarily set it to 90%. (And it jumps to 100%). 
 //z02. when grid, amend it so that it can cope, neatly, with a title (or, I suppose, 'entry') spanning 2+ lines and all 'cells' still being horizontally adjacent
 //z04. make `section` take up full row under certain vw (like in profes websites). 
+//z06. img#1
 
-//ANIMATIONS: HEADER: 1. Underline menu-items. 2. Menu, in non-mobile mode, opens up from side.
+//TWEAKING:
+//z01. font.
+//z02. tweaking dimensions
+
 //SCALING-FOR-A-BIG-SCREEN: 
 //SAFARI: 
-//z02. once .svgs understood, read CSSTricks article to help Safari load svg consistently (you made a SO question about this (that included a Youtube demo video)).
+//ANIMATIONS: HEADER: 1. Underline menu-items. 2. Menu, in non-mobile mode, opens up from side.
 //RESETS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 *, ::before, ::after {
     margin: 0;
@@ -60,7 +64,8 @@ h3 {
 }
 
 h4 {
-    margin: 2em 0;//1.33em 0;
+    // margin: 2em 0;//1.33em 0;
+    margin-bottom: 2rem;
 }
 
 p {
@@ -154,6 +159,7 @@ img {
     object-fit: contain;
     width: 100%;
     height: 100%;
+    vertical-align: bottom;
 }
 
 @mixin grid-container-template($column-value: 1fr, $row-value: 1fr) {
@@ -217,21 +223,42 @@ header {
 #small-menu {
     min-height: var(--vh100);
     background-color: var(--dark-blue); color: white;
-    @include grid-container-horizontally-and-vertically-center-GIs(auto, var(--header-height) repeat(3, 1fr) var(--header-height));
-    > * {
+    //FLEX
+    section[class*=dummy-header] {
         height: var(--header-height);
-        @include grid-container-horizontally-and-vertically-center-GIs(auto, auto);
     }
-    > *:first-child {
-        justify-self: end;
-        align-self: start;
-        #exit-image {
+    .dummy-header {
+        display: flex; justify-content: flex-end; align-items: center;
+        .img-container {
             margin: 0 var(--menu-button-horizontal-margin);
             height: var(--hamburger-button-height);
             width: var(--menu-button-width-dimension);
-            color: initial; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(105deg) brightness(110%) contrast(101%);
         }
     }
+    .h3-container {
+        min-height: calc(var(--vh100) - calc(2 * var(--header-height)));
+        display: flex; flex-direction: column; align-items: initial;
+        >*{
+            flex-basis: 0; flex-grow: 1; min-height: 100px;
+            display: flex; justify-content: center; align-items: center;
+        }
+    }
+    //GRID
+    // @include grid-container-horizontally-and-vertically-center-GIs(auto, var(--header-height) repeat(3, 1fr) var(--header-height));
+    // > * {
+    //     height: var(--header-height);
+    //     @include grid-container-horizontally-and-vertically-center-GIs(auto, auto);
+    // }
+    // > *:first-child {
+    //     justify-self: end;
+    //     align-self: start;
+    //     #exit-image {
+    //         margin: 0 var(--menu-button-horizontal-margin);
+    //         height: var(--hamburger-button-height);
+    //         width: var(--menu-button-width-dimension);
+    //         color: initial; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(105deg) brightness(110%) contrast(101%);
+    //     }
+    // }
 }
 
 main { 
@@ -251,7 +278,7 @@ main {
         > .img-container {
             width: var(--percentage-of-image);//calc(max(500px, var(--percentage-of-image)));
             height: auto;
-            min-height: 400px;//var(--golf-min-height);
+            min-height: 422px;//400px;//var(--golf-min-height);
             max-height: 500px;
             background-color: var(--dark-blue);
             > img {
@@ -259,6 +286,12 @@ main {
                 @media screen and (min-width: 1200px) {
                     object-position: 50% 70%;
                     // object-fit: contain;
+                }
+            }
+            @media screen and (max-width: 400px) {
+                min-height: initial;
+                #car-img {
+                    object-fit: contain;
                 }
             }
         }
@@ -289,7 +322,7 @@ main {
         }
     }
     #form-container {
-        max-width: 800px;//🧙‍♂️reasonable scanning limitation
+        // max-width: 800px;//🧙‍♂️reasonable scanning limitation
         margin-bottom: 1rem;
         // padding-top: 2rem;
         // border-top: solid 1px var(--dark-blue); //border: solid 1px var(--dark-blue); 
@@ -300,14 +333,15 @@ main {
         form {
             // width: calc(min(850px, 90%));
             margin: 0 auto;// 1rem auto;
-            display: flex; flex-wrap: wrap; justify-content: center; //align-items: center;
+            display: flex; flex-direction: column; align-items: center;
+            //justify-content: center; //
             @media screen and (max-width: 720px) {
                 // justify-content: flex-start;
                 max-width: 300px;
                 //GRID
             }
             > * {
-                margin: 0 0.5em 1em 0.5em;
+                margin-bottom: 1rem; //0 0.5em 1em 0.5em;
                 // flex-basis: var(--arbitrarily-large-number);
             }
             button {
@@ -321,9 +355,19 @@ main {
     }
 }
 
+// .object-fit-contain {
+//     object-fit: contain !important;
+// }
+// .min-height-initial {
+//     min-height: initial !important;
+// }
+
 footer {
     width: calc(min(850px, 90%)); 
     margin: 0 auto; 
+    border-top: var(--hf-border);
+    padding-top: 2rem; 
+    // padding-left: 1rem; padding-right: 1rem;//padding-left: 2rem; //padding-bottom: 1rem;
     display: flex; flex-wrap: wrap; 
     //GRID
     // @include grid-container-horizontally-and-vertically-center-GIs(repeat(3, 1fr), auto); column-gap: 2em;
@@ -331,11 +375,16 @@ footer {
     >* {
         flex-basis: 0px;
         flex-grow: 1;
-        padding: 0 2em;
+        padding: 0 1rem;// padding-right: 2em;
+        // min-width: 125px; 
+        margin-bottom: 1rem;
         //FLEX
         display: flex; justify-content: center;
-        @media screen and (max-width: 400px) {//🧙‍♂️arbitrary number
+        @media screen and (max-width: 400px) {//🧙‍♂️magic number
             justify-content: flex-start;
+            // > * {
+            //     margin-left: 1rem;
+            // }
         }
         //GRID
         // display: grid; justify-content: center;//🧙‍♂️if applying this, sol.i) need a magic-num break-point where you stop centering content of sections sol.ii) 
@@ -343,6 +392,7 @@ footer {
         //     justify-content: initial;
         // }
         h4 {
+            margin-top: initial; 
             font-weight: 800;
         }
         p {
@@ -351,8 +401,6 @@ footer {
             text-align: initial;
         }
     }
-    border-top: var(--hf-border);
-    padding-bottom: 1em;
     @media screen and (max-width: $vw-suitable-for-small-menu) {
         width: 100%;
     }
