@@ -13,10 +13,10 @@
 
 //PICTURE & TEXT: 
 //crop smaller img in photoshop to use & control w/media-queries.
+    //find a different way - manually experimenting with what looks good (maming sure it doesn't crop out picture).
 
 //FORM
-//🧱do wrapping with CSS-GRID
-//z02 make them align vertically all-the-time.
+//z02 get a grid layout with Flexbox.
 //z01 space between title and 'take the tour', in mobile becomes too big.
 
 //FOOTER:
@@ -322,32 +322,26 @@ main {
         }
     }
     #form-container {
-        // max-width: 800px;//🧙‍♂️reasonable scanning limitation
-        margin-bottom: 1rem;
-        // padding-top: 2rem;
-        // border-top: solid 1px var(--dark-blue); //border: solid 1px var(--dark-blue); 
-        // border-bottom: solid 1px var(--dark-blue); //border: solid 1px var(--dark-blue); 
         h1 {
-            margin-top: 0;
+            margin-top: 0px;
         }
         form {
             // width: calc(min(850px, 90%));
             margin: 0 auto;// 1rem auto;
             display: flex; flex-direction: column; align-items: center;
             //justify-content: center; //
-            @media screen and (max-width: 720px) {
-                // justify-content: flex-start;
-                max-width: 300px;
-                //GRID
-            }
             > * {
-                margin-bottom: 1rem; //0 0.5em 1em 0.5em;
-                // flex-basis: var(--arbitrarily-large-number);
+                margin-bottom: 1rem;
             }
             button {
                 background-color: var(--orange);
             }
         }
+        // max-width: 800px;//🧙‍♂️reasonable scanning limitation
+        // padding-top: 2rem;
+        // border-top: solid 1px var(--dark-blue); //border: solid 1px var(--dark-blue); 
+        // border-bottom: solid 1px var(--dark-blue); //border: solid 1px var(--dark-blue); 
+        margin-bottom: 1rem;
     }
     #scroll-bar-test {
         background-color: orange;

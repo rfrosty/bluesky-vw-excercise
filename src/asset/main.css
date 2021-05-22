@@ -349,7 +349,7 @@ main #form-container {
 }
 
 main #form-container h1 {
-  margin-top: 0;
+  margin-top: 0px;
 }
 
 main #form-container form {
@@ -364,12 +364,6 @@ main #form-container form {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-@media screen and (max-width: 720px) {
-  main #form-container form {
-    max-width: 300px;
-  }
 }
 
 main #form-container form > * {
